@@ -49,7 +49,15 @@ class UserRegistrationSerailizer(serializers.ModelSerializer):
 
         if password!=password_confirmation:
             raise ce(
-                message="Two password doesn't match"
+                message="Form Validation Error",
+                error={
+                "password": [
+                        "Two Passwords Doesn't match."
+                ],
+                "password_confirmation": [
+                        "Two Passwords Doesn't match."
+                ]
+                }
             )
         return attrs 
     
@@ -84,7 +92,6 @@ class UserLoginSerailizer(serializers.Serializer):
     password=serializers.CharField(
         write_only=True,
         style={'input_type':'password'},
-        validators=[validate_password]
     )
 
 
