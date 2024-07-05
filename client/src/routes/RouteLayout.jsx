@@ -5,6 +5,7 @@ import NotFound from "../pages/NotFound/notFound";
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "../components/Common/ProtectedRoute/ProtectedRoute";
 import PublicRoute from "../components/Common/PublicRoute/PublicRoute";
+import { ChangePassword } from "../pages/ChangePassword/changePassword";
 
 
 function RegisterAndLogout() {
@@ -18,12 +19,6 @@ export default function RouteLayout() {
     return (
         <div>
             <Routes>
-                <Route path="/" element={
-                    <ProtectedRoute>
-                        <Home />
-                    </ProtectedRoute>}>
-                </Route>
-
                 <Route path="/login" element={
                     <PublicRoute>
                         <Login />
@@ -35,6 +30,17 @@ export default function RouteLayout() {
                         <RegisterAndLogout />
                     </PublicRoute>
                 } />
+                <Route path="/change-password" element={
+                    <ProtectedRoute>
+                        <ChangePassword />
+                    </ProtectedRoute>
+                } />
+                <Route path="/" element={
+                    <ProtectedRoute>
+                        <Home />
+                    </ProtectedRoute>}>
+                </Route>
+
 
                 {/* ! If the Route Other than the specified one are mapped this NotFound Component Will be Called */}
                 <Route path="*" element={<NotFound />} />
