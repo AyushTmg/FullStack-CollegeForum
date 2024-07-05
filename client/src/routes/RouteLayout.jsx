@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "../components/Common/ProtectedRoute/ProtectedRoute";
 import PublicRoute from "../components/Common/PublicRoute/PublicRoute";
 import { ChangePassword } from "../pages/ChangePassword/changePassword";
+import ForgotPassword from "../pages/ForgotPassword/forgotPassword";
 
 
 function RegisterAndLogout() {
@@ -34,6 +35,11 @@ export default function RouteLayout() {
                     <ProtectedRoute>
                         <ChangePassword />
                     </ProtectedRoute>
+                } />
+                <Route path="/forgot-password" element={
+                    <PublicRoute>
+                        <ForgotPassword />
+                    </PublicRoute>
                 } />
                 <Route path="/" element={
                     <ProtectedRoute>

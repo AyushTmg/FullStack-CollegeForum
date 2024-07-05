@@ -69,6 +69,7 @@ export default function Login() {
                     Login
                 </button>
 
+                <div><Link to="/forgot-password">Forgot Password? </Link> </div >
                 <div>Don't have a account? <Link to="/register">Register</Link> </div >
 
             </form>
