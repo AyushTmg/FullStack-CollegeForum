@@ -9,7 +9,7 @@ export default function Home() {
     const logoutClick = () => {
         localStorage.clear()
         ToastMessage.success("Successfully Logged Out")
-        navigate('/login')
+        return navigate('/login')
     }
 
     return (
@@ -18,6 +18,7 @@ export default function Home() {
 
             {/*For User Logout */}
             <button onClick={logoutClick}>Logout</button>
+            <button><Link to={'/change-password'}>Change Password</Link></button>
         </>
     )
 }
