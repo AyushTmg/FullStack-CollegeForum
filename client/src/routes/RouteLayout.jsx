@@ -7,6 +7,7 @@ import ProtectedRoute from "../components/Common/ProtectedRoute/ProtectedRoute";
 import PublicRoute from "../components/Common/PublicRoute/PublicRoute";
 import { ChangePassword } from "../pages/ChangePassword/changePassword";
 import ForgotPassword from "../pages/ForgotPassword/forgotPassword";
+import { ResetPassword } from "../pages/ResetPassword/resetPassword";
 
 
 function RegisterAndLogout() {
@@ -39,6 +40,11 @@ export default function RouteLayout() {
                 <Route path="/forgot-password" element={
                     <PublicRoute>
                         <ForgotPassword />
+                    </PublicRoute>
+                } />
+                <Route path="/reset-password/:uid/:token" element={
+                    <PublicRoute>
+                        <ResetPassword />
                     </PublicRoute>
                 } />
                 <Route path="/" element={
