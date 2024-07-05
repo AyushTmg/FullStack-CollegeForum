@@ -178,7 +178,10 @@ class SendPasswordResetEmailSerailizer(serializers.Serializer):
         token=PasswordResetTokenGenerator().make_token(user)
 
         # ! Generated data for sending in mail 
-        link=f'http://127.0.0.1:8000/api/auth/reset-password/{uid}/{token}/'
+        # link=f'http://127.0.0.1:8000/api/auth/reset-password/{uid}/{token}/'
+
+    # ! For Giving the Link to Frontend
+        link=f'http://127.0.0.1:5173/reset-password/{uid}/{token}/'
         subject="Resetting Password"
         email=user.email
 
@@ -222,23 +225,26 @@ class UserPasswordResetSerailizer(serializers.Serializer):
         token=self.context['token']
         user_id=smart_str(urlsafe_base64_decode(uid))
 
+
         # ! password validation
         if password!=password_confirmation:
             raise ce(
                 message="Two password doesn't match"
             )
         
-        # ! Checks if thne token received matches with the token generated for user
-        if not PasswordResetTokenGenerator().check_token(user,token):
-            raise ce(
-                message="Token Expired or Invalid"
-            )
+
         
         try:
             user=User.objects.get(id=user_id)
         except User.DoesNotExist:
             raise ce(
                 message="User with the given email doesn't exist"
+            )
+        
+        # ! Checks if thne token received matches with the token generated for user
+        if not PasswordResetTokenGenerator().check_token(user,token):
+            raise ce(
+                message="Token Expired or Invalid"
             )
          
         # ! Sets the new password and saves it 
