@@ -12,16 +12,12 @@ export default function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isLoading, setLoading] = useState(false)
-    const [error, setError] = useState({})
-    const [errorMessage, setErrorMessage] = useState("")
     const navigate = useNavigate()
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        setError({});
-        setErrorMessage('');
 
         try {
             const res = await api.post('api/auth/login/', { email, password })
@@ -39,14 +35,10 @@ export default function Login() {
 
             // ! If Response Has Succes To False Navigating To Login
         } catch (error) {
-            console.log(error)
-            setErrorMessage(error.response.data.message);
-            setError(error.response.data.errors);
-            errorMessage ? ToastMessage.error(errorMessage) : null
+            ToastMessage.error("Invalid Credential provided")
         } finally {
             setLoading(false);
         }
-
     }
 
 
@@ -62,7 +54,6 @@ export default function Login() {
                     change={(e) => {
                         setEmail(e.target.value)
                     }}
-                    error={error.email}
                 />
                 <InputField
                     type="password"
@@ -72,15 +63,11 @@ export default function Login() {
                     change={(e) => {
                         setPassword(e.target.value)
                     }}
-                    error={error.password}
                 />
 
                 <button className="form-button" type="submit">
                     Login
                 </button>
-
-
-
 
                 <div>Don't have a account? <Link to="/register">Register</Link> </div >
 

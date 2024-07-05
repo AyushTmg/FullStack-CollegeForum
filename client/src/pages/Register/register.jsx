@@ -13,8 +13,8 @@ export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
-    const [error, setError] = useState({})
-    const [errorMessage, setErrorMessage] = useState("")
+    const [error, setError] = useState({});
+    const [errorMessage, setErrorMessage] = useState("");
     const [isLoading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -39,15 +39,15 @@ export default function Register() {
 
             if (response.success) {
                 setLoading(false);
-                ToastMessage.success(response.message)
+                ToastMessage.success(response.message);
                 return navigate('/login');
             }
-
         } catch (error) {
-
-            setErrorMessage(error.response.data.message);
+            const errorMessage = error.response.data.message;
+            setErrorMessage(errorMessage);
             setError(error.response.data.errors);
-            errorMessage ? ToastMessage.error(errorMessage) : null
+            ToastMessage.error(errorMessage);
+
         } finally {
             setLoading(false);
         }
@@ -86,7 +86,6 @@ export default function Register() {
                     className="form-input"
                     change={(e) => setUsername(e.target.value)}
                     error={error.username}
-
                 />
 
                 <InputField
@@ -97,7 +96,6 @@ export default function Register() {
                     className="form-input"
                     change={(e) => setEmail(e.target.value)}
                     error={error.email}
-
                 />
 
                 <InputField
@@ -118,15 +116,13 @@ export default function Register() {
                     className="form-input"
                     change={(e) => setPasswordConfirmation(e.target.value)}
                     error={error.password_confirmation}
-
                 />
 
                 <button type="submit" className="form-button">
                     Register
                 </button>
-                <div>Already have a account? <Link to="/login">Login</Link> </div >
+                <div>Already have an account? <Link to="/login">Login</Link></div>
             </form>
-
         </>
     );
 }
