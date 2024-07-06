@@ -1,7 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import ToastMessage from '../../utils/toaster/toaster';
 import { userDetail } from '../../utils/userDetail/userDetail';
-
+import Header from '../../components/Header/header';
+import Footer from '../../components/Footer/footer';
 
 export default function Home() {
     const navigate = useNavigate()
@@ -18,13 +19,18 @@ export default function Home() {
 
     return (
         <>
-            <div>Home</div>
+            <Header />
+            <br />
 
             {/*For User Logout */}
-            <button onClick={logoutClick}>Logout</button>
-            <button><Link to={'/change-password'}>Change Password</Link></button>
+            <div >
+                <button onClick={logoutClick}>Logout</button>
+                <button><Link to={'/change-password'}>Change Password</Link></button>
 
-            <div>Welcome {userData.username}</div>
+                <div>Welcome {userData.username}</div>
+            </div>
+
+            <Footer />
         </>
     )
 }
