@@ -15,6 +15,7 @@ class QuestionSerailizer(serializers.ModelSerializer):
             'likes',
             'time_stamp',
             'description',
+            'semester'
         ]
 
 

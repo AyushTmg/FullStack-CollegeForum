@@ -10,6 +10,16 @@ class Question(models.Model):
     time_stamp=models.DateTimeField(auto_now_add=True)
     user=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='question')
     likes=models.IntegerField(default=0,null=True,blank=True)
+    semester = [
+        ('1st Semester', '1st Semester'),
+        ('2nd Semester', '2nd Semester'),
+        ('3rd Semester', '3rd Semester'),
+        ('4th Semester', '4th Semester'),
+        ('5th Semester', '5th Semester'),
+        ('6th Semester', '6th Semester'),
+        ('7th Semester', '7th Semester'),
+        ('8th Semester', '8th Semester'),
+    ]
 
 
     def __str__(self) -> str:
