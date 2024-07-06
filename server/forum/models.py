@@ -5,12 +5,7 @@ from django.conf import settings
 
 # ! Models For Raising Question In The Forum
 class Question(models.Model):
-    title=models.CharField(max_length=50)
-    description=models.CharField(max_length=200)
-    time_stamp=models.DateTimeField(auto_now_add=True)
-    user=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='question')
-    likes=models.IntegerField(default=0,null=True,blank=True)
-    semester = [
+    SEMESTER_CHOICES = [
         ('1st Semester', '1st Semester'),
         ('2nd Semester', '2nd Semester'),
         ('3rd Semester', '3rd Semester'),
@@ -20,6 +15,12 @@ class Question(models.Model):
         ('7th Semester', '7th Semester'),
         ('8th Semester', '8th Semester'),
     ]
+    title=models.CharField(max_length=50)
+    description=models.CharField(max_length=200)
+    time_stamp=models.DateTimeField(auto_now_add=True)
+    user=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='question')
+    likes=models.IntegerField(default=0,null=True,blank=True)
+    semester = models.CharField(max_length=15, choices=SEMESTER_CHOICES)
 
 
     def __str__(self) -> str:
