@@ -12,6 +12,7 @@ django-cors-headers==4.4.0
 django-debug-toolbar==4.3.0
 djangorestframework==3.15.1
 djangorestframework-simplejwt==5.3.1
+drf-nested-routers==0.94.1
 kombu==5.3.6
 prompt-toolkit==3.0.43
 PyJWT==2.8.0
