@@ -8,6 +8,7 @@ import PublicRoute from "../components/Common/PublicRoute/PublicRoute";
 import { ChangePassword } from "../pages/ChangePassword/changePassword";
 import ForgotPassword from "../pages/ForgotPassword/forgotPassword";
 import { ResetPassword } from "../pages/ResetPassword/resetPassword";
+import DetailPage from "../pages/DetailPage/detailPage";
 
 
 function RegisterAndLogout() {
@@ -52,7 +53,12 @@ export default function RouteLayout() {
                         <Home />
                     </ProtectedRoute>}>
                 </Route>
-
+                <Route path="/question/:id" element={
+                    <ProtectedRoute>
+                        <DetailPage />
+                    </ProtectedRoute>
+                }
+                />
 
                 {/* ! If the Route Other than the specified one are mapped this NotFound Component Will be Called */}
                 <Route path="*" element={<NotFound />} />
