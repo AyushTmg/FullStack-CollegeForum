@@ -10,8 +10,6 @@ export default function Header() {
     const navigate = useNavigate()
 
     const userData = userDetail();
-    console.log("This is user data", userData)
-
     // ! For Handeling User Logout
     const logoutClick = () => {
         localStorage.clear()
@@ -91,6 +89,7 @@ export default function Header() {
                 </div>
             </header >
             <div className='mb-5'></div>
+            <br />
         </>
     );
 }
