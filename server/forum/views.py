@@ -136,7 +136,7 @@ class QuestionViewSet(ModelViewSet):
     # ! Custom Like Action 
     @action(
             detail=True,
-            methods=['POST','DELETE'],
+            methods=['GET','POST','DELETE'],
             permission_classes=[IsAuthenticated]
         )
     def like(self,request,pk):
@@ -145,6 +145,27 @@ class QuestionViewSet(ModelViewSet):
         From  Specific Question
         """
         user_id=request.user.id
+
+        if request.method=='GET':
+            try:
+                question_like=QuestionLike.objects.filter(
+                    user_id=user_id,
+                    question_id=pk 
+                )
+
+                if question_like.exists():
+                    return cr.success(data={
+                        'is_liked':True
+                    })
+                return cr.success(data={
+                    'is_liked':False
+                })
+            
+            except Exception as e:
+                return cr.error(
+                    message="Some Error Occured In GET Method",
+                    status=HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
         if request.method=='POST':
             try:
@@ -263,6 +284,7 @@ class AnswerViewSet(ModelViewSet):
             message="Post Deleted Successfully"
             )
 
+
     def get_queryset(self):
         """
         Overriding the queryset to filter the answer 
@@ -303,7 +325,7 @@ class AnswerViewSet(ModelViewSet):
     # ! Custom Like Action 
     @action(
             detail=True,
-            methods=['POST','DELETE'],
+            methods=['GET','POST','DELETE'],
             permission_classes=[IsAuthenticated]
         )
     def like(self,request,pk,question_pk):
@@ -312,6 +334,27 @@ class AnswerViewSet(ModelViewSet):
         From  Specific Question
         """
         user_id=request.user.id
+
+        if request.method=='GET':
+            try:
+                answer_like=AnswerLike.objects.filter(
+                    user_id=user_id,
+                    answer_id=pk 
+                )
+
+                if answer_like.exists():
+                    return cr.success(data={
+                        'is_liked':True
+                    })
+                return cr.success(data={
+                    'is_liked':False
+                })
+            
+            except Exception as e:
+                return cr.error(
+                    message="Some Error Occured In GET Method",
+                    status=HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
         if request.method=='POST':
             try:
@@ -333,7 +376,9 @@ class AnswerViewSet(ModelViewSet):
             except Exception as e:
                 # ! Just For handeling Expections
                 print('Error alert: A user is trying to like same object multiple times ')
-                return cr.error(status=HTTP_500_INTERNAL_SERVER_ERROR)
+                return cr.error(
+                    status=HTTP_500_INTERNAL_SERVER_ERROR
+                )
         
 
         if request.method=='DELETE':
@@ -352,7 +397,8 @@ class AnswerViewSet(ModelViewSet):
             answer.likes-=1
             answer.save()
 
-            return cr.success(status=HTTP_204_NO_CONTENT)
+            return cr.success(
+                status=HTTP_204_NO_CONTENT)
             
 
     
