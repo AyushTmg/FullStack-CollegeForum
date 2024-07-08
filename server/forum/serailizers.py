@@ -6,6 +6,8 @@ from rest_framework import serializers
 class QuestionSerailizer(serializers.ModelSerializer):
     user=serializers.StringRelatedField()
     likes=serializers.IntegerField(read_only=True)
+    is_liked=serializers.BooleanField(read_only=True)
+
 
     class Meta:
         model=Question
@@ -37,6 +39,9 @@ class QuestionSerailizer(serializers.ModelSerializer):
 # ! Serailizer For Question Answer
 class AnswerSerailizer(serializers.ModelSerializer):
     user=serializers.StringRelatedField()
+    likes=serializers.IntegerField(read_only=True)
+    is_liked=serializers.BooleanField(read_only=True)
+
 
     class Meta:
         model=Answer

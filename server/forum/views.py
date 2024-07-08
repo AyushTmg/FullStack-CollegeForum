@@ -211,6 +211,57 @@ class AnswerViewSet(ModelViewSet):
     # ! Custom Permission Called
     permission_classes=[IsUserObjectOrAdminPermission]
 
+    def list(self, request, *args, **kwargs):
+        """  
+        Overriding the method for custom response
+        """
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return cr.success(
+            data=serializer.data
+            )
+
+
+    def retrieve(self, request, *args, **kwargs):
+        """  
+        Overriding the method for custom response
+        """
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return cr.success(
+            data=serializer.data
+            )
+
+
+    def create(self, request, *args, **kwargs):
+        """  
+        Overriding the method for custom response
+        """
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        return cr.success(
+            status=HTTP_201_CREATED,
+            message="You Have Successfuly Created New Post"
+        )
+    
+
+    def destroy(self, request, *args, **kwargs):
+        """  
+        Overriding the method for custom response
+        """
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return cr.success(
+            status=HTTP_204_NO_CONTENT,
+            message="Post Deleted Successfully"
+            )
 
     def get_queryset(self):
         """
