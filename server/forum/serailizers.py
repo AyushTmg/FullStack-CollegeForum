@@ -5,6 +5,7 @@ from rest_framework import serializers
 # ! Serializer For Question 
 class QuestionSerailizer(serializers.ModelSerializer):
     user=serializers.StringRelatedField()
+    likes=serializers.IntegerField(read_only=True)
 
     class Meta:
         model=Question

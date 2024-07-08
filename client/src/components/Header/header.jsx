@@ -27,7 +27,7 @@ export default function Header() {
                         <div className="d-flex justify-content-between text-white">
                             <div className="d-flex justify-content-evenly col-8">
                                 <div className="nav-item cursor-pointer" onClick={() => navigate('/')}>Home</div>
-                                <div className="nav-item">About Us</div>
+                                <div className="nav-item cursor-pointer" onClick={() => navigate('/create-post')}>Create Post</div>
                                 <div className="nav-item">Our Team</div>
                                 <div className="nav-item">Contact Us</div>
                             </div>
