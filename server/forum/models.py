@@ -19,7 +19,6 @@ class Question(models.Model):
     description=models.CharField(max_length=200)
     time_stamp=models.DateTimeField(auto_now_add=True)
     user=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='question')
-    is_liked=models.BooleanField(default=False)
     likes=models.IntegerField(default=0,null=True,blank=True)
     semester = models.CharField(max_length=15, choices=SEMESTER_CHOICES)
 
@@ -38,7 +37,6 @@ class Answer(models.Model):
     description=models.CharField(max_length=100)
     time_stamp=models.DateTimeField(auto_now_add=True)
     question=models.ForeignKey(Question,on_delete=models.CASCADE,related_name='answer')
-    is_liked=models.BooleanField(default=False)
     likes=models.IntegerField(default=0,null=True,blank=True)
     user=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='answer')
 
