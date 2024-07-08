@@ -24,15 +24,11 @@ export default function DetailPage() {
     const [description, setDescription] = useState("");
 
 
-    const handleDelete = async () => {
+    const handleDelete = () => {
         try {
-            const res = await api.delete(`api/forum/questions/${question.id}/`)
-            const response = res.data;
-
-            if (response.success) {
-                ToastMessage.success(response.message)
-                navigate('/')
-            }
+            api.delete(`api/forum/questions/${question.id}/`)
+            ToastMessage.success("Successfullly Deleted")
+            navigate('/')
         } catch (error) {
             if (isAxiosError(error)) {
                 ToastMessage.error(error.response.data.message);
@@ -122,6 +118,7 @@ export default function DetailPage() {
                             id={answer.id}
                             user={answer.user}
                             description={answer.description}
+                            likes={answer.likes}
                             timeStamp={answer.time_stamp}
                         />
                     ))}

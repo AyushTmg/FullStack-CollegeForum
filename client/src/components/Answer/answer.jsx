@@ -4,19 +4,59 @@ import api from "../../api/api"
 import ToastMessage from "../../utils/toaster/toaster"
 import { isAxiosError } from "axios"
 import { useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
 
-export default function Answer({ id, questionId, user, description, timeStamp }) {
+export default function Answer({ id, questionId, user, description, timeStamp, likes }) {
     const userData = userDetail()
     const loggedUser = userData.username
-    const navigate = useNavigate()
+    const [isLiked, setIsLiked] = useState(false);
+    const [currentLikes, setCurrentLikes] = useState(likes);
+    const [loading, setLoading] = useState(true);
 
 
-    const handleAnswerDelete = async () => {
+    useEffect(() => {
         try {
-            const res = await api.delete(`api/forum/questions/${questionId}/answers/${id}/`)
+            async function fetchIntialStatus() {
+                const res = await api.get(`api/forum/questions/${questionId}/answers/${id}/like/`)
+                const response = res.data;
+                if (response.success) {
+                    setIsLiked(response.data.is_liked)
+                    setLoading(false)
+                }
+            }
+            fetchIntialStatus()
+        } catch (error) {
+            ToastMessage.error("Error alert");
+            console.log(error)
+            setLoading(false)
+
+        }
+
+    }, [])
+
+
+    const handleAnswerDelete = () => {
+        try {
+            api.delete(`api/forum/questions/${questionId}/answers/${id}/`)
+            ToastMessage.success("Deleted Successfully")
+        } catch (error) {
+            if (isAxiosError(error)) {
+                ToastMessage.error(error.response.data.message);
+            } else {
+                ToastMessage.error("An unexpected error occurred.", error);
+                console.log("Thsi is error", error)
+            }
+        }
+    }
+
+
+    const handleAnswerLike = async () => {
+        try {
+            const res = await api.post(`api/forum/questions/${questionId}/answers/${id}/like/`);
             const response = res.data;
             if (response.success) {
-                ToastMessage.success(response.message)
+                setIsLiked(true);
+                setCurrentLikes((prevLikes) => prevLikes + 1);
             }
         } catch (error) {
             if (isAxiosError(error)) {
@@ -28,17 +68,43 @@ export default function Answer({ id, questionId, user, description, timeStamp })
         }
     }
 
+    const handleAnswerUnlike = async () => {
+        try {
+            const x = await api.delete(`api/forum/questions/${questionId}/answers/${id}/like/`);
+            setIsLiked(false);
+            setCurrentLikes((prevLikes) => prevLikes - 1);
+
+        } catch (error) {
+            if (isAxiosError(error)) {
+                ToastMessage.error(error.response.data.message);
+            } else {
+                ToastMessage.error("An unexpected error occurred.");
+                console.log("Thsi is error", error)
+            }
+        }
+    }
+
+
+
     return (
         <>
             <div className="p-5 bg-primary text-white mt-5">
                 <div>User {user}</div>
                 <div>Description {description}</div>
                 <div>TimeStamp {timeStamp}</div>
+                <div>Likes {currentLikes}</div>
 
                 {loggedUser == user &&
                     <div className="btn btn-danger" onClick={handleAnswerDelete}>Delete</div>
                 }
-                <button className="btn btn-success">Like</button>
+
+                {loading ? (
+                    <div>Loading...</div>
+                ) : isLiked ? (
+                    <button className="btn btn-success" onClick={handleAnswerUnlike}>Unlike</button>
+                ) : (
+                    <button className="btn btn-success" onClick={handleAnswerLike}>Like</button>
+                )}
             </div>
         </>
     )

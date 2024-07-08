@@ -34,10 +34,6 @@ export default function Home() {
     }, []);
 
 
-
-
-
-
     return (
         <>
 
@@ -56,10 +52,6 @@ export default function Home() {
                         timeStamp={question.time_stamp}
                         semester={question.semester}
                         id={question.id}
-                        is_liked={question.is_liked}
-
-
-
                     />
                 )) : <div>No Data</div>}
             </div>

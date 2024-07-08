@@ -1,14 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./question.css";
 import PropTypes from 'prop-types';
 import api from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import ToastMessage from "../../utils/toaster/toaster";
 
-export default function QuestionCard({ id, title, user, likes, timeStamp, is_liked, semester }) {
+export default function QuestionCard({ id, title, user, likes, timeStamp, semester, is_liked }) {
     const [isLiked, setIsLiked] = useState(is_liked);
     const [currentLikes, setCurrentLikes] = useState(likes);
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+
+
+    useEffect(() => {
+        try {
+            async function fetchIntialStatus() {
+                const res = await api.get(`api/forum/questions/${id}/like/`)
+                const response = res.data;
+
+                if (response.success) {
+                    setIsLiked(response.data.is_liked)
+                    setLoading(false)
+                }
+
+            }
+            fetchIntialStatus()
+        } catch (error) {
+            ToastMessage.error("Error alert");
+            console.log(error)
+            setLoading(false)
+
+        }
+
+    }, [])
+
 
     const handleViewDetail = async () => {
         try {
@@ -39,7 +64,7 @@ export default function QuestionCard({ id, title, user, likes, timeStamp, is_lik
         try {
             await api.post(`api/forum/questions/${id}/like/`);
             setIsLiked(true);
-            setCurrentLikes(currentLikes + 1);
+            setCurrentLikes((prevLike) => prevLike + 1);
         } catch (error) {
             ToastMessage.error("Failed to like the question.");
             console.log(error);
@@ -50,7 +75,7 @@ export default function QuestionCard({ id, title, user, likes, timeStamp, is_lik
         try {
             await api.delete(`api/forum/questions/${id}/like/`);
             setIsLiked(false);
-            setCurrentLikes(currentLikes - 1);
+            setCurrentLikes((prevLike) => prevLike - 1);
         } catch (error) {
             ToastMessage.error("Failed to unlike the question.");
             console.log(error);
@@ -68,7 +93,10 @@ export default function QuestionCard({ id, title, user, likes, timeStamp, is_lik
                     <p className="card-text"><small>Semester: {semester}</small></p>
                     <p className="card-text"><small>Time: {new Date(timeStamp).toLocaleString()}</small></p>
                     <button className="btn btn-primary me-2" onClick={handleViewDetail}>View Details</button>
-                    {isLiked ? (
+
+                    {loading ? (
+                        <div>Loading...</div>
+                    ) : isLiked ? (
                         <button className="btn btn-success" onClick={handleUnlike}>Unlike</button>
                     ) : (
                         <button className="btn btn-success" onClick={handleLike}>Like</button>
@@ -85,5 +113,4 @@ QuestionCard.propTypes = {
     user: PropTypes.string.isRequired,
     likes: PropTypes.number.isRequired,
     timeStamp: PropTypes.string.isRequired,
-    is_liked: PropTypes.bool.isRequired,
 };

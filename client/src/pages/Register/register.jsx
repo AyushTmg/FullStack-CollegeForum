@@ -43,8 +43,7 @@ export default function Register() {
                 return navigate('/login');
             }
         } catch (error) {
-            const errorMessage = error.response.data.message;
-            setErrorMessage(errorMessage);
+            setErrorMessage(error.response.data.message);
             setError(error.response.data.errors);
             ToastMessage.error(errorMessage);
 
