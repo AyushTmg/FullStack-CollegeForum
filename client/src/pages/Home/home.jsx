@@ -13,18 +13,14 @@ export default function Home() {
     const userData = userDetail();
     const [questions, setQuestions] = useState([]);
 
-    // ! For Handeling User Logout
-    const logoutClick = () => {
-        localStorage.clear()
-        ToastMessage.success("Successfully Logged Out")
-        return navigate('/login')
-    }
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
                 const res = await api.get("api/forum/questions/");
                 const response = res.data;
-                setQuestions(response);
+                if (response.success) {
+                    setQuestions(response.data);
+                }
             } catch (error) {
                 if (axios.isAxiosError(error)) {
                     ToastMessage.error(error.response.data.message || "An error occurred while fetching questions.");
@@ -37,17 +33,10 @@ export default function Home() {
         fetchQuestions();
     }, []);
 
-    const handleViewDetail = async (id) => {
-        try {
-            const res = await api.get(`api/forum/questions/${id}/`);
-            const questionDetail = res.data;
-            navigate(`/question/${id}`, { state: { question: questionDetail } });
 
-        } catch (error) {
-            ToastMessage.error("Failed to fetch question details.");
-            console.log(error)
-        }
-    };
+
+
+
 
     return (
         <>
@@ -62,11 +51,15 @@ export default function Home() {
                     <QuestionCard
                         key={question.id}
                         title={question.title}
-                        description={question.description}
                         user={question.user}
                         likes={question.likes}
                         timeStamp={question.time_stamp}
-                        onViewDetail={() => handleViewDetail(question.id)}
+                        semester={question.semester}
+                        id={question.id}
+                        is_liked={question.is_liked}
+
+
+
                     />
                 )) : <div>No Data</div>}
             </div>
