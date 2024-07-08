@@ -13,9 +13,9 @@ class QuestionSerailizer(serializers.ModelSerializer):
             'id',
             'user',
             'title',
+            'is_liked',
             'likes',
             'time_stamp',
-            'description',
             'semester'
         ]
 
@@ -43,6 +43,7 @@ class AnswerSerailizer(serializers.ModelSerializer):
         fields=[
             'id',
             'user',
+            'is_liked',
             'likes',
             'time_stamp',
             'description',

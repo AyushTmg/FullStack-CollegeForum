@@ -115,9 +115,6 @@ class QuestionViewSet(ModelViewSet):
             )
     
 
-
-
-
     def get_serializer_class(self):
         """
         Overriding the serailzer class for assigning Empty Serializer 
@@ -159,6 +156,7 @@ class QuestionViewSet(ModelViewSet):
                 
                 # !Get the Question Instance  and Increase The Number Of Likes by One
                 question=Question.objects.get(id=pk)
+                question.is_liked=True
                 question.likes+=1
                 question.save()
                 
@@ -183,6 +181,7 @@ class QuestionViewSet(ModelViewSet):
  
             # !Get the Question Instance  and Decrease The Number Of Likes by One
             question=Question.objects.get(id=pk)
+            question.is_liked=False
             question.likes-=1
             question.save()
             
@@ -273,6 +272,7 @@ class AnswerViewSet(ModelViewSet):
 
                 # ! Get the Answer Instance and Increase the no of likes by One
                 answer=Answer.objects.get(id=pk)
+                answer.is_liked=True
                 answer.likes+=1
                 answer.save()
 
@@ -297,6 +297,7 @@ class AnswerViewSet(ModelViewSet):
 
             # ! Get the Answer Instance and decrease the no of likes by One 
             answer=Answer.objects.get(id=pk)
+            answer.is_liked=False
             answer.likes-=1
             answer.save()
 
