@@ -1,11 +1,11 @@
 
 import './resetPassword.css'
-import api from '../../api/api'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import ToastMessage from '../../utils/toaster/toaster'
 import InputField from '../../components/Common/InputField/InputField'
 import { isAxiosError } from "axios";
+import { resetPassword } from '../../services/Authentication/auth'
 
 export function ResetPassword() {
     const navigate = useNavigate()
@@ -17,14 +17,13 @@ export function ResetPassword() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const res = api.post(
-                `api/auth/reset-password/${uid}/${token}/`,
+            const response = await resetPassword(
                 {
                     password: password,
                     password_confirmation: passwordConfirmation
-                }
+                }, uid, token
             )
-            const response = (await res).data;
+
             if (response.success) {
                 localStorage.clear()
                 ToastMessage.success(response.message)
@@ -34,9 +33,9 @@ export function ResetPassword() {
         catch (error) {
             if (isAxiosError(error)) {
                 ToastMessage.error(error.response.data.message);
-
             } else {
-                ToastMessage.error("An unexpected error occurred.", error);
+                ToastMessage.error("An unexpected error occurred while resetting password");
+                console.log(error);
             }
         }
     }

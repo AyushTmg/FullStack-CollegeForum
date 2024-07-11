@@ -1,10 +1,11 @@
-import api from "../../api/api";
+import "./register.css";
 import { useState } from "react";
-import "./register.css"; // Ensure this file exists for styling
 import { useNavigate } from "react-router-dom";
 import InputField from "../../components/Common/InputField/InputField";
 import { Link } from 'react-router-dom';
 import ToastMessage from "../../utils/toaster/toaster";
+import { isAxiosError } from "axios";
+import { userRegister } from "../../services/Authentication/auth";
 
 export default function Register() {
     const [firstName, setFirstName] = useState('');
@@ -15,40 +16,37 @@ export default function Register() {
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const [error, setError] = useState({});
     const [errorMessage, setErrorMessage] = useState("");
-    const [isLoading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
         setError({});
         setErrorMessage('');
         try {
-            const res = await api.post(
-                'api/auth/register/',
-                {
-                    first_name: firstName,
-                    last_name: lastName,
-                    username: username,
-                    email: email,
-                    password: password,
-                    password_confirmation: passwordConfirmation
-                }
-            );
-            const response = res.data;
+
+            const response = await userRegister({
+                first_name: firstName,
+                last_name: lastName,
+                username: username,
+                email: email,
+                password: password,
+                password_confirmation: passwordConfirmation
+            })
 
             if (response.success) {
-                setLoading(false);
                 ToastMessage.success(response.message);
                 return navigate('/login');
             }
         } catch (error) {
-            setErrorMessage(error.response.data.message);
-            setError(error.response.data.errors);
-            ToastMessage.error(errorMessage);
+            if (isAxiosError(error)) {
+                setErrorMessage(error.response.data.message);
+                setError(error.response.data.errors);
+                ToastMessage.error(errorMessage);
+            } else {
+                ToastMessage("Some Error Occured In FrontEnd While Registering User")
+                console.log(error)
+            }
 
-        } finally {
-            setLoading(false);
         }
     };
 

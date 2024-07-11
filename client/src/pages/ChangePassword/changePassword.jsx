@@ -1,10 +1,10 @@
 import './changePassword.css'
-import api from '../../api/api'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ToastMessage from '../../utils/toaster/toaster'
 import InputField from '../../components/Common/InputField/InputField'
 import { isAxiosError } from "axios";
+import { changePassword } from '../../services/Authentication/auth'
 
 export function ChangePassword() {
     const navigate = useNavigate()
@@ -16,15 +16,13 @@ export function ChangePassword() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const res = api.post(
-                'api/auth/change-password/',
+            const response = await changePassword(
                 {
                     old_password: oldPassword,
                     new_password: newPassword,
                     new_password_confirmation: newPasswordConfirmation
                 }
             )
-            const response = (await res).data;
             if (response.success) {
                 localStorage.clear()
                 ToastMessage.success(response.message)
@@ -34,7 +32,6 @@ export function ChangePassword() {
         catch (error) {
             if (isAxiosError(error)) {
                 ToastMessage.error(error.response.data.message);
-
                 // ! Doing It later
                 // const errors = error.response.data.errors
                 // if (error != null) {

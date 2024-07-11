@@ -1,10 +1,9 @@
 import './forgotPassword.css'
-import api from "../../api/api"
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
 import InputField from "../../components/Common/InputField/InputField"
 import ToastMessage from "../../utils/toaster/toaster"
 import { isAxiosError } from "axios";
+import { forgotPassword } from '../../services/Authentication/auth'
 
 
 export default function ForgotPassword() {
@@ -14,8 +13,7 @@ export default function ForgotPassword() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await api.post('api/auth/forgot-password/', { email })
-            const response = res.data;
+            const response = await forgotPassword({ email })
             if (response.success) {
                 ToastMessage.success(response.message)
                 setEmail("");

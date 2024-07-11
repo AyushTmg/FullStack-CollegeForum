@@ -1,43 +1,36 @@
-import api from "../../api/api"
 import { useState } from "react"
 import "./login.css"
 import { useNavigate } from "react-router-dom"
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../constant"
 import InputField from "../../components/Common/InputField/InputField"
 import { Link } from 'react-router-dom';
 import ToastMessage from "../../utils/toaster/toaster"
-
+import { userLogin } from "../../services/Authentication/auth"
+import { isAxiosError } from "axios"
 
 export default function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [isLoading, setLoading] = useState(false)
     const navigate = useNavigate()
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
-
         try {
-            const res = await api.post('api/auth/login/', { email, password })
-            console.log(res);
-            const response = res.data;
-            console.log(response);
+            const response = await userLogin({ email, password })
             if (response.success) {
-                // ! If Success Setting Access And Refresh Token At Local Storage 
-                localStorage.setItem(ACCESS_TOKEN, response.data.access)
-                localStorage.setItem(REFRESH_TOKEN, response.data.refresh)
-                // ! Navigating To Root
                 ToastMessage.success(response.message)
+                // ! Navigating To Root
                 navigate('/')
             }
 
             // ! If Response Has Succes To False Navigating To Login
         } catch (error) {
-            ToastMessage.error("Invalid Credential provided")
-        } finally {
-            setLoading(false);
+            if (isAxiosError(error)) {
+                ToastMessage.error("Invalid Credential provided")
+            } else {
+                ToastMessage.error("An unexpected error occurred while loggin in");
+                console.log(error)
+            }
         }
     }
 
