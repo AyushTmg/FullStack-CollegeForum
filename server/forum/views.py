@@ -9,7 +9,8 @@ from .models import (
 from .serailizers import (
     QuestionSerailizer,
     AnswerSerailizer,
-    EmptySerializer
+    EmptySerializer,
+    QuestionDetailSerailizer
 )
 
 from utils.response.response import CustomResponse as cr 
@@ -84,7 +85,7 @@ class QuestionViewSet(ModelViewSet):
         Overriding the method for custom response
         """
         instance = self.get_object()
-        serializer = self.get_serializer(instance)
+        serializer = QuestionDetailSerailizer(instance)
         return cr.success(
             data=serializer.data
             )
