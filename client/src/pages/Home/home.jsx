@@ -1,23 +1,18 @@
-import { Link, useNavigate } from 'react-router-dom';
 import ToastMessage from '../../utils/toaster/toaster';
 import { userDetail } from '../../utils/userDetail/userDetail';
-import Header from '../../components/Header/header';
-import Footer from '../../components/Footer/footer';
-import api from "../../api/api"
 import { useEffect, useState } from 'react';
 import QuestionCard from '../../components/Question/question';
+import { fetchQuestionList } from '../../services/Forum/forum';
 
 
 export default function Home() {
-    const navigate = useNavigate()
     const userData = userDetail();
     const [questions, setQuestions] = useState([]);
 
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
-                const res = await api.get("api/forum/questions/");
-                const response = res.data;
+                const response = await fetchQuestionList();
                 if (response.success) {
                     setQuestions(response.data);
                 }

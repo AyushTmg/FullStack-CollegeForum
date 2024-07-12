@@ -2,10 +2,10 @@ import './post.css'
 import InputField from '../../components/Common/InputField/InputField'
 import { useState } from 'react'
 import { userDetail } from '../../utils/userDetail/userDetail';
-import api from '../../api/api';
 import ToastMessage from '../../utils/toaster/toaster';
 import { isAxiosError } from "axios";
 import { useNavigate } from 'react-router-dom';
+import { createQuestion } from '../../services/Forum/forum';
 
 const SEMESTER_CHOICES = [
     '1st Semester',
@@ -31,17 +31,14 @@ export default function CreatePost() {
         e.preventDefault();
 
         try {
-            const res = await api.post(
-                'api/forum/questions/',
-                {
-                    title: title,
-                    description: description,
-                    semester: semester,
-                    user_id: userData.user_id
-                }
-            )
-            const response = res.data;
+            const response = await createQuestion({
+                title: title,
+                description: description,
+                semester: semester,
+                user_id: userData.user_id
+            });
 
+            console.log(title, description, semester)
             if (response.success) {
                 ToastMessage.success(response.message)
                 navigate('/login')

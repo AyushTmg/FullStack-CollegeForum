@@ -1,10 +1,9 @@
 import "./answer.css"
 import { userDetail } from "../../utils/userDetail/userDetail"
-import api from "../../api/api"
 import ToastMessage from "../../utils/toaster/toaster"
 import { isAxiosError } from "axios"
-import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
+import { deleteAnswer, fetchInitialAnswerLikeStatus, likeAnswer, unlikeAnswer } from "../../services/Forum/forum"
 
 export default function Answer({ id, questionId, user, description, timeStamp, likes }) {
     const userData = userDetail()
@@ -17,8 +16,7 @@ export default function Answer({ id, questionId, user, description, timeStamp, l
     useEffect(() => {
         try {
             async function fetchIntialStatus() {
-                const res = await api.get(`api/forum/questions/${questionId}/answers/${id}/like/`)
-                const response = res.data;
+                const response = await fetchInitialAnswerLikeStatus(questionId, id);
                 if (response.success) {
                     setIsLiked(response.data.is_liked)
                     setLoading(false)
@@ -37,7 +35,7 @@ export default function Answer({ id, questionId, user, description, timeStamp, l
 
     const handleAnswerDelete = () => {
         try {
-            api.delete(`api/forum/questions/${questionId}/answers/${id}/`)
+            deleteAnswer(questionId, id)
             ToastMessage.success("Deleted Successfully")
         } catch (error) {
             if (isAxiosError(error)) {
@@ -52,8 +50,7 @@ export default function Answer({ id, questionId, user, description, timeStamp, l
 
     const handleAnswerLike = async () => {
         try {
-            const res = await api.post(`api/forum/questions/${questionId}/answers/${id}/like/`);
-            const response = res.data;
+            const response = await likeAnswer(questionId, id);
             if (response.success) {
                 setIsLiked(true);
                 setCurrentLikes((prevLikes) => prevLikes + 1);
@@ -70,7 +67,7 @@ export default function Answer({ id, questionId, user, description, timeStamp, l
 
     const handleAnswerUnlike = async () => {
         try {
-            const x = await api.delete(`api/forum/questions/${questionId}/answers/${id}/like/`);
+            await unlikeAnswer(questionId, id);
             setIsLiked(false);
             setCurrentLikes((prevLikes) => prevLikes - 1);
 
@@ -88,24 +85,25 @@ export default function Answer({ id, questionId, user, description, timeStamp, l
 
     return (
         <>
-            <div className="p-5 bg-primary text-white mt-5">
-                <div>User {user}</div>
-                <div>Description {description}</div>
-                <div>TimeStamp {timeStamp}</div>
-                <div>Likes {currentLikes}</div>
+            {loading ? (
+                <div>Loading...</div>
+            ) :
+                <div className="p-5 bg-primary text-white mt-5">
+                    <div>User {user}</div>
+                    <div>Description {description}</div>
+                    <div>TimeStamp {timeStamp}</div>
+                    <div>Likes {currentLikes}</div>
 
-                {loggedUser == user &&
-                    <div className="btn btn-danger" onClick={handleAnswerDelete}>Delete</div>
-                }
+                    {loggedUser == user &&
+                        <div className="btn btn-danger" onClick={handleAnswerDelete}>Delete</div>
+                    }
 
-                {loading ? (
-                    <div>Loading...</div>
-                ) : isLiked ? (
-                    <button className="btn btn-success" onClick={handleAnswerUnlike}>Unlike</button>
-                ) : (
-                    <button className="btn btn-success" onClick={handleAnswerLike}>Like</button>
-                )}
-            </div>
+                    {isLiked ? (
+                        <button className="btn btn-success" onClick={handleAnswerUnlike}>Unlike</button>
+                    ) : (
+                        <button className="btn btn-success" onClick={handleAnswerLike}>Like</button>
+                    )}
+                </div>}
         </>
     )
 }

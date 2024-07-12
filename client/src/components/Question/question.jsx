@@ -1,9 +1,17 @@
+import {
+    fetchInitalQuestionLikeStatus,
+    likeQuestion,
+    unlikeQuestion,
+    fetchQuestionDetail,
+    fetchAnswerListRelatedToSpecificQuestion
+} from "../../services/Forum/forum";
 import { useState, useEffect } from "react";
 import "./question.css";
 import PropTypes from 'prop-types';
-import api from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import ToastMessage from "../../utils/toaster/toaster";
+
+
 
 export default function QuestionCard({ id, title, user, likes, timeStamp, semester, is_liked }) {
     const [isLiked, setIsLiked] = useState(is_liked);
@@ -15,14 +23,11 @@ export default function QuestionCard({ id, title, user, likes, timeStamp, semest
     useEffect(() => {
         try {
             async function fetchIntialStatus() {
-                const res = await api.get(`api/forum/questions/${id}/like/`)
-                const response = res.data;
-
+                const response = await fetchInitalQuestionLikeStatus(id);
                 if (response.success) {
                     setIsLiked(response.data.is_liked)
                     setLoading(false)
                 }
-
             }
             fetchIntialStatus()
         } catch (error) {
@@ -37,12 +42,10 @@ export default function QuestionCard({ id, title, user, likes, timeStamp, semest
 
     const handleViewDetail = async () => {
         try {
-            const res = await api.get(`api/forum/questions/${id}/`);
-            const questionResponse = res.data;
+            const questionResponse = await fetchQuestionDetail(id);
             const questionDetail = questionResponse.data;
 
-            const ans = await api.get(`api/forum/questions/${id}/answers/`);
-            const answerResponse = ans.data;
+            const answerResponse = await fetchAnswerListRelatedToSpecificQuestion(id);
             const answerList = answerResponse.data
 
             if (questionResponse.success && answerResponse.success) {
@@ -62,7 +65,7 @@ export default function QuestionCard({ id, title, user, likes, timeStamp, semest
 
     const handleLike = async () => {
         try {
-            await api.post(`api/forum/questions/${id}/like/`);
+            await likeQuestion(id);
             setIsLiked(true);
             setCurrentLikes((prevLike) => prevLike + 1);
         } catch (error) {
@@ -73,7 +76,7 @@ export default function QuestionCard({ id, title, user, likes, timeStamp, semest
 
     const handleUnlike = async () => {
         try {
-            await api.delete(`api/forum/questions/${id}/like/`);
+            await unlikeQuestion(id);
             setIsLiked(false);
             setCurrentLikes((prevLike) => prevLike - 1);
         } catch (error) {

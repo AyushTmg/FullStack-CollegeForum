@@ -2,11 +2,10 @@ import "./detailPage.css"
 import { useLocation, useNavigate } from 'react-router-dom';
 import { userDetail } from "../../utils/userDetail/userDetail";
 import { useState } from "react";
-import api from "../../api/api";
 import { isAxiosError } from "axios";
 import Answer from "../../components/Answer/answer";
 import ToastMessage from "../../utils/toaster/toaster";
-import InputField from "../../components/Common/InputField/InputField"
+import { createAnswer, deleteQuestion } from "../../services/Forum/forum";
 
 
 
@@ -26,7 +25,7 @@ export default function DetailPage() {
 
     const handleDelete = () => {
         try {
-            api.delete(`api/forum/questions/${question.id}/`)
+            deleteQuestion(question.id)
             ToastMessage.success("Successfullly Deleted")
             navigate('/')
         } catch (error) {
@@ -42,11 +41,12 @@ export default function DetailPage() {
     const handleAnswerSubmit = async (e) => {
         e.preventDefault()
         try {
-            const res = await api.post(`api/forum/questions/${question.id}/answers/`, {
-                description: description,
-                user_id: userData.user_id
-            })
-            const response = res.data;
+            const response = await createAnswer(
+                {
+                    description: description,
+                    user_id: userData.user_id
+                }, question.id
+            );
 
             if (response.success) {
                 ToastMessage.success(response.message)
