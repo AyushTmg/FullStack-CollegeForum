@@ -3,6 +3,7 @@ import { userDetail } from '../../utils/userDetail/userDetail';
 import { useEffect, useState } from 'react';
 import QuestionCard from '../../components/Question/question';
 import { fetchQuestionList } from '../../services/Forum/forum';
+import Header from '../../components/Header/header';
 
 
 export default function Home() {
@@ -31,7 +32,7 @@ export default function Home() {
 
     return (
         <>
-
+            <Header />
             {/*For User Logout */}
             <div className='d-flex justify-content-center'>
                 <div>Welcome {userData.username}</div>

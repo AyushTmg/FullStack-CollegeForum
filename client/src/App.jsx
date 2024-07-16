@@ -12,9 +12,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Header />
         <RouteLayout />
-        <Footer />
       </BrowserRouter>
 
       <ToastContainer />
