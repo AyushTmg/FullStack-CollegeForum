@@ -58,7 +58,7 @@ export default function Register() {
                         <div className="col my-4">
                             <div className="row g-0">
                                 <div className="col-xl-5 d-none d-xl-block">
-                                    <img src="/images/register.png" alt="Sample" className="img-fluid" style={{ borderTopLeftRadius: '.25rem', borderBottomLeftRadius: '.25rem' }} />
+                                    <img src="/images/happy_dora.webp" alt="Sample" className="img-fluid" style={{ borderTopLeftRadius: '.25rem', borderBottomLeftRadius: '.25rem' }} />
                                 </div>
 
 

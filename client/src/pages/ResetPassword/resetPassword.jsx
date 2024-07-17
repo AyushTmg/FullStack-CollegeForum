@@ -41,28 +41,77 @@ export function ResetPassword() {
     }
     return (
         <>
-            <form method="post" onSubmit={handleSubmit}>
-                <InputField
-                    type="password"
-                    name="password"
-                    placeholder="Enter your new password"
-                    value={password}
-                    className="form-input"
-                    change={(e) => setPassword(e.target.value)}
-                />
-                <InputField
-                    type="password"
-                    name="password_confirmation"
-                    placeholder="Enter your new password confirmation"
-                    value={passwordConfirmation}
-                    className="form-input"
-                    change={(e) => setPasswordConfirmation(e.target.value)}
-                />
+            {/* <div className='container '>
+                <div className='row vh-100 d-flex justify-content-center align-items-center'>
+                    <div className='col-4'>
+                        <form method="post" onSubmit={handleSubmit}>
+                            <div className='mt-4'>
+                                <InputField
+                                    type="password"
+                                    name="password"
+                                    placeholder="Enter your new password"
+                                    value={password}
+                                    change={(e) => setPassword(e.target.value)}
+                                />
+                            </div>
 
-                <button type="submit" className="form-button">
-                    Reset Password
-                </button>
-            </form>
+                            <div className='mt-4'>
+                                <InputField
+                                    type="password"
+                                    name="password_confirmation"
+                                    placeholder="Enter your new password confirmation"
+                                    value={passwordConfirmation}
+                                    change={(e) => setPasswordConfirmation(e.target.value)}
+                                />
+                            </div>
+
+                            <button type="submit" className="form-button ">
+                                Reset Password
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div> */}
+            <div className="row vh-100 d-flex justify-content-center align-items-center" style={{
+                backgroundImage: 'url(/images/dora.webp)',
+                backgroundSize: 'contain',
+                backgroundPosition: 'left center ',
+                backgroundRepeat: 'no-repeat',
+            }}>
+                <div className="col-xl-4 col-lg-4 col-sm-8 col-8 ">
+                    <div className="card" style={{ backgroundColor: '#333333', color: 'white' }}>
+                        <div className="card-body">
+                            <form method="post" onSubmit={handleSubmit}>
+                                <div className="mt-4">
+                                    <InputField
+                                        type="password"
+                                        name="password"
+                                        placeholder="Enter your new password"
+                                        value={password}
+                                        change={(e) => setPassword(e.target.value)}
+                                    />
+                                </div>
+
+                                <div className="mt-4">
+                                    <InputField
+                                        type="password"
+                                        name="password_confirmation"
+                                        placeholder="Enter your new password confirmation"
+                                        value={passwordConfirmation}
+                                        change={(e) => setPasswordConfirmation(e.target.value)}
+                                    />
+                                </div>
+
+                                <button type="submit" className="form-button mt-4">
+                                    Reset Password
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </>
     )
 }

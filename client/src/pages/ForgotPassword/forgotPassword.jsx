@@ -32,24 +32,64 @@ export default function ForgotPassword() {
 
     return (
         <>
-            <form onSubmit={handleSubmit} className="form-container" method="post">
+            <div className=" d-flex justify-content-center align-items-center vh-100">
+                <div className="row w-100">
+                    <div
+                        className="col-lg-12 d-flex justify-content-center align-items-center  p-5"
+                        style={{
+                            borderRadius: '0.25rem',
+                            backgroundImage: 'url(/images/forgot_pass.jpeg)',
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center ',
+                            backgroundRepeat: 'no-repeat',
+                            height: '100vh',
+                        }}
+                    >
+                        <form onSubmit={handleSubmit} method="post" className=" p-5 rounded" style={{ maxWidth: '500px', width: '100%', backgroundColor: '#333333' }}>
+                            <h1 className="mb-4">Forgot Password</h1>
 
-                <h1>Forgot Password</h1>
-                <InputField
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    change={(e) => {
-                        setEmail(e.target.value)
-                    }}
-                />
+                            <div className="mb-3">
+                                <InputField
+                                    type="email"
+                                    name="email"
+                                    placeholder="Enter your email"
+                                    value={email}
+                                    change={(e) => {
+                                        setEmail(e.target.value)
+                                    }}
+                                />
+                            </div>
+                            <button className="btn btn-primary w-100" type="submit">
+                                Send Email
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-                <button className="form-button" type="submit">
-                    Send Email
-                </button>
+            {/* <div >
 
-            </form>
+                <div>
+
+                    <form onSubmit={handleSubmit} method="post">
+                        <h1>Forgot Password</h1>
+                        <InputField
+                            type="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            value={email}
+                            change={(e) => {
+                                setEmail(e.target.value)
+                            }}
+                        />
+
+                        <button className="form-button" type="submit">
+                            Send Email
+                        </button>
+
+                    </form>
+                </div>
+            </div> */}
         </>
     )
 }
