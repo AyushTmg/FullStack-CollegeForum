@@ -11,7 +11,6 @@ export default function InputField({
     change,
     error = null,
     name,
-    className = "form-input",
 }) {
 
     return (
@@ -23,7 +22,7 @@ export default function InputField({
                 value={value}
                 name={name}
                 onChange={change}
-                className={className}
+                className="form-control form-control-lg"
                 required
             />
             {error && <p className="error">{error}</p>}

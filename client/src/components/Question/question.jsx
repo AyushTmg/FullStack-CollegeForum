@@ -40,29 +40,6 @@ export default function QuestionCard({ id, title, user, likes, timeStamp, semest
     }, [])
 
 
-    const handleViewDetail = async () => {
-        try {
-            const questionResponse = await fetchQuestionDetail(id);
-            const questionDetail = questionResponse.data;
-
-            const answerResponse = await fetchAnswerListRelatedToSpecificQuestion(id);
-            const answerList = answerResponse.data
-
-            if (questionResponse.success && answerResponse.success) {
-                navigate(`/question/${id}`, {
-                    state: {
-                        question: questionDetail,
-                        answers: answerList
-                    }
-                });
-            }
-
-        } catch (error) {
-            ToastMessage.error("Failed to fetch question details.");
-            console.log(error);
-        }
-    };
-
     const handleLike = async () => {
         try {
             await likeQuestion(id);
@@ -95,7 +72,7 @@ export default function QuestionCard({ id, title, user, likes, timeStamp, semest
                     <p className="card-text"><small>Likes: {currentLikes}</small></p>
                     <p className="card-text"><small>Semester: {semester}</small></p>
                     <p className="card-text"><small>Time: {new Date(timeStamp).toLocaleString()}</small></p>
-                    <button className="btn btn-primary me-2" onClick={handleViewDetail}>View Details</button>
+                    <button className="btn btn-primary me-2" onClick={() => navigate(`/question/${id}`)}>View Details</button>
 
                     {loading ? (
                         <div>Loading...</div>

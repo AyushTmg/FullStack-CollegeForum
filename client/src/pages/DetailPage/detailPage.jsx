@@ -1,26 +1,43 @@
 import "./detailPage.css"
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { userDetail } from "../../utils/userDetail/userDetail";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { isAxiosError } from "axios";
 import Answer from "../../components/Answer/answer";
 import ToastMessage from "../../utils/toaster/toaster";
-import { createAnswer, deleteQuestion } from "../../services/Forum/forum";
+import { createAnswer, deleteQuestion, fetchQuestionDetail, fetchAnswerListRelatedToSpecificQuestion } from "../../services/Forum/forum";
 
 
 
 export default function DetailPage() {
     const userData = userDetail();
     const navigate = useNavigate()
-    const location = useLocation()
-    const { state } = location
-    const question = state.question;
-    const answers = state.answers ? state.answers : [];
-
+    const { id } = useParams()
 
     const [isAnswering, setIsAnswering] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
     const [description, setDescription] = useState("");
+    const [question, setQuestion] = useState({});
+    const [answers, setAnswers] = useState([]);
+
+    useEffect(() => {
+        try {
+            async function fetchData() {
+                const questionResponse = await fetchQuestionDetail(id);
+                setQuestion(questionResponse.data);
+
+                const answerResponse = await fetchAnswerListRelatedToSpecificQuestion(id);
+                setAnswers(answerResponse.data)
+            }
+            fetchData();
+
+        } catch (error) {
+            ToastMessage.error("Failed to fetch question details.");
+            console.log(error);
+        }
+    }, [id])
+
+
 
 
     const handleDelete = () => {

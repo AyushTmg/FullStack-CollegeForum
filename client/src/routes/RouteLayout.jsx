@@ -66,7 +66,7 @@ export default function RouteLayout() {
                 }
                 />
 
-                <Route path="/create-post" element={
+                <Route path="/ask-question" element={
                     <ProtectedRoute>
                         <CreatePost />
                     </ProtectedRoute>}>
