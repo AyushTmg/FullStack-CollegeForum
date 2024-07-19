@@ -23,8 +23,6 @@ export default function RegisterInputField({
                 value={value}
                 required
             />
-            <label className="form-label" htmlFor={name}>{label}</label>
-
             {error && <p className="error fw-bold">{error}</p>}
         </>
     );
