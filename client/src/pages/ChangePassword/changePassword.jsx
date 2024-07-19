@@ -45,39 +45,57 @@ export function ChangePassword() {
 
     return (
         <>
-            <form method="post" onSubmit={handleSubmit}>
-                <InputField
-                    type="password"
-                    name="old_password"
-                    placeholder="Enter your old password"
-                    value={oldPassword}
-                    className="form-input"
-                    change={(e) => setOldPassword(e.target.value)}
-                // error={errorResponse.old_password ? errorResponse.old_password : null}
-                />
-                <InputField
-                    type="password"
-                    name="new_password"
-                    placeholder="Enter your new password"
-                    value={newPassword}
-                    className="form-input"
-                    change={(e) => setNewPassword(e.target.value)}
-                // error={errorResponse.new_password ? errorResponse.new_password : null}
-                />
-                <InputField
-                    type="password"
-                    name="new_password_confirmation"
-                    placeholder="Enter your new password confirmation"
-                    value={newPasswordConfirmation}
-                    className="form-input"
-                    change={(e) => setNewPasswordConfirmation(e.target.value)}
-                // error={errorResponse.new_password_confirmation ? errorResponse.new_password_confirmation : null}
-                />
 
-                <button type="submit" className="form-button">
-                    Change Password
-                </button>
-            </form>
+            <div className='row d-flex justify-content-center align-items-center vh-100' style={{
+                backgroundImage: 'url(/images/broom.webp),url(/images/broom.webp)',
+                backgroundSize: 'contain',
+                backgroundPosition: 'left center, right center',
+                backgroundRepeat: 'no-repeat',
+            }}>
+                <div className='col-lg-6 col-xl-4 col-md-6 col-sm-6 card p-4 ' style={{ backgroundColor: '#333333' }}>
+                    <form method="post" onSubmit={handleSubmit}>
+                        <div className='mb-2'>
+                            <InputField
+                                type="password"
+                                name="old_password"
+                                placeholder="Enter your old password"
+                                value={oldPassword}
+                                className="form-input"
+                                change={(e) => setOldPassword(e.target.value)}
+                            // error={errorResponse.old_password ? errorResponse.old_password : null}
+                            />
+                        </div>
+                        <div className='mb-2'>
+                            <InputField
+                                type="password"
+                                name="new_password"
+                                placeholder="Enter your new password"
+                                value={newPassword}
+                                className="form-input"
+                                change={(e) => setNewPassword(e.target.value)}
+                            // error={errorResponse.new_password ? errorResponse.new_password : null}
+                            />
+                        </div>
+
+                        <div className='mb-2'>
+                            <InputField
+                                type="password"
+                                name="new_password_confirmation"
+                                placeholder="Enter your new password confirmation"
+                                value={newPasswordConfirmation}
+                                className="form-input"
+                                change={(e) => setNewPasswordConfirmation(e.target.value)}
+                            // error={errorResponse.new_password_confirmation ? errorResponse.new_password_confirmation : null}
+                            />
+                        </div>
+
+
+                        <button type="submit" className="form-button">
+                            Change Password
+                        </button>
+                    </form>
+                </div>
+            </div>
         </>
     )
 }

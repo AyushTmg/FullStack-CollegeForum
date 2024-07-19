@@ -49,12 +49,12 @@ export default function Login() {
                         <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                             <form onSubmit={handleSubmit} method="post">
                                 <div>
-                                    <p className="lead fw-normal mb-0 me-3"></p>
+                                    <h3 className="lead fw-normal mb-4 me-3"></h3>
                                 </div>
 
-                                <div className="divider d-flex align-items-center my-4">
-                                    <p className="text-center fw-bold mx-3 mb-0"></p>
-                                </div>
+                                {/* <div className="divider d-flex align-items-center my-4">
+                                    <h4 className="text-center mx-3 mb-0"></h4>
+                                </div> */}
 
                                 <div className="form-outline mb-4">
                                     <input type="email" id="form3Example3" className="form-control form-control-lg" placeholder="Enter a valid email address" name="email"
@@ -62,7 +62,7 @@ export default function Login() {
                                         onChange={(e) => {
                                             setEmail(e.target.value)
                                         }} required />
-                                    <label className="form-label" htmlFor="form3Example3">Email address</label>
+                                    {/* <label className="form-label" htmlFor="form3Example3">Email address</label> */}
                                 </div>
 
                                 <div className="form-outline mb-3">
@@ -72,7 +72,7 @@ export default function Login() {
                                         onChange={(e) => {
                                             setPassword(e.target.value)
                                         }} className="form-control form-control-lg" required />
-                                    <label className="form-label" htmlFor="form3Example4">Password</label>
+                                    {/* <label className="form-label" htmlFor="form3Example4">Password</label> */}
                                 </div>
 
                                 <div className="d-flex justify-content-between align-items-center">
@@ -89,7 +89,7 @@ export default function Login() {
                                     <button type="submit" className="btn btn-primary btn-lg" style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }}>Login</button>
                                 </div>
                                 <div className="d-flex justify-content-center">
-                                    <p className=" fw-bold mt-2 pt-1 mb-0">Don't have an account? &nbsp;&nbsp;&nbsp; <Link to="/register" className="link-danger">Register</Link></p>
+                                    <p className=" fw-bold mt-2 pt-1 mb-0">Don't have an account? &nbsp;&nbsp;&nbsp;  <Link to="/register" className="link-danger">Register</Link></p>
                                 </div>
                             </form>
                         </div>
