@@ -38,7 +38,7 @@ class QuestionViewSet(ModelViewSet):
         Question.objects
         .all()
         .select_related('user')
-    )
+    ).order_by('-time_stamp')
 
     # ! Adding Filters Backend
     filter_backends=[
@@ -301,7 +301,7 @@ class AnswerViewSet(ModelViewSet):
             Answer.objects
             .filter(question_id=question_id)
             .select_related('user')
-        )
+        ).order_by('-time_stamp')
 
 
     def get_serializer_class(self):
