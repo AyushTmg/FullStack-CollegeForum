@@ -26,7 +26,7 @@ from rest_framework.status import (
     HTTP_500_INTERNAL_SERVER_ERROR
 )
 
-
+from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import get_object_or_404
 
 
@@ -41,7 +41,12 @@ class QuestionViewSet(ModelViewSet):
     )
 
     # ! Adding Filters Backend
-    filter_backends=[SearchFilter,OrderingFilter]
+    filter_backends=[
+        SearchFilter,
+        DjangoFilterBackend,
+        OrderingFilter
+    ]
+    filterset_fields=['semester']
 
     # ! Fields Used For Searching
     search_fields = ['title','description']
