@@ -14,3 +14,12 @@
 .cursor-pointer {
     cursor: pointer;
 }
+
+.custom-dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+
+.custom-dropdown .dropdown-toggle::after {
+    display: none;
+}

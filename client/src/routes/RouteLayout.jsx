@@ -10,6 +10,8 @@ import ForgotPassword from "../pages/ForgotPassword/forgotPassword";
 import { ResetPassword } from "../pages/ResetPassword/resetPassword";
 import DetailPage from "../pages/DetailPage/detailPage";
 import CreatePost from "../pages/CreatePost/post";
+import SemesterFilter from "../pages/Semester/semester";
+import SearchFilter from "../pages/SearchPage/serachPage";
 
 
 function RegisterAndLogout() {
@@ -38,6 +40,18 @@ export default function RouteLayout() {
                 <Route path="/change-password" element={
                     <ProtectedRoute>
                         <ChangePassword />
+                    </ProtectedRoute>
+                } />
+
+                <Route path="/semester/:semester" element={
+                    <ProtectedRoute>
+                        <SemesterFilter />
+                    </ProtectedRoute>
+                } />
+
+                <Route path="/search/:str" element={
+                    <ProtectedRoute>
+                        <SearchFilter />
                     </ProtectedRoute>
                 } />
 

@@ -5,6 +5,14 @@ export async function fetchQuestionList() {
     const res = await api.get("api/forum/questions/");
     return res.data
 }
+export async function fetchQuestionListBySemester(semester) {
+    const res = await api.get(`api/forum/questions/?semester=${semester}`);
+    return res.data
+}
+export async function fetchQuestionListBySearch(str) {
+    const res = await api.get(`api/forum/questions/?search=${str}`);
+    return res.data
+}
 export async function createQuestion(payload) {
     console.log(payload)
     const res = await api.post('api/forum/questions/', payload)

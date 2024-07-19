@@ -1,13 +1,14 @@
 import "./header.css"
 import { userDetail } from '../../utils/userDetail/userDetail';
 import ToastMessage from '../../utils/toaster/toaster';
-import { Link, useNavigate } from 'react-router-dom';
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 
 
 
 export default function Header() {
     const navigate = useNavigate()
+    const [searchText, setSearchText] = useState("")
 
     const userData = userDetail();
     // ! For Handeling User Logout
@@ -15,6 +16,14 @@ export default function Header() {
         localStorage.clear()
         ToastMessage.success("Successfully Logged Out")
         return navigate('/login')
+    }
+
+    const routeBySemester = (semester) => {
+        navigate(`/semester/${semester}`)
+    }
+
+    const handleSearchSubmit = () => {
+        navigate(`/search/${searchText}`)
     }
 
 
@@ -25,13 +34,36 @@ export default function Header() {
                     <div className="row">
 
                         <div className="d-flex justify-content-between text-white">
-                            <div className="d-flex justify-content-evenly col-8">
+                            <div className="d-flex justify-content-evenly col-10">
                                 <div className="nav-item cursor-pointer" onClick={() => navigate('/')}>Home</div>
-                                <div className="nav-item cursor-pointer" onClick={() => navigate('/create-post')}>Create Post</div>
-                                <div className="nav-item">Our Team</div>
-                                <div className="nav-item">Contact Us</div>
+                                <div className="nav-item cursor-pointer" onClick={() => navigate('/ask-question')}>Ask  Question</div>
+                                <div className="nav-item dropdown custom-dropdown">
+                                    <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Select By Semester
+                                    </a>
+                                    <ul className="dropdown-menu dropdown-menu-dark">
+                                        <li><button className="dropdown-item" onClick={() => routeBySemester('1st Semester')} >1st Semester</button></li>
+                                        <li><button className="dropdown-item" onClick={() => routeBySemester('2nd Semester')} >2nd Semester</button></li>
+                                        <li><button className="dropdown-item" onClick={() => routeBySemester('3rd Semester')} >3rd Semester</button></li>
+                                        <li><button className="dropdown-item" onClick={() => routeBySemester('4th Semester')} >4th Semester</button></li>
+                                        <li><button className="dropdown-item" onClick={() => routeBySemester('5th Semester')} >5th Semester</button></li>
+                                        <li><button className="dropdown-item" onClick={() => routeBySemester('6th Semester')} >6th Semester</button></li>
+                                        <li><button className="dropdown-item" onClick={() => routeBySemester('7th Semester')} >7th Semester</button></li>
+                                        <li><button className="dropdown-item" onClick={() => routeBySemester('8th Semester')} >8th Semester</button></li>
+                                    </ul>
+                                </div>
+
+                                <div className="nav-item">
+                                    <form className="d-flex " role="search" onSubmit={handleSearchSubmit}>
+                                        <input className="form-control me-2" type="search" placeholder="Search" value={searchText} onChange={(e) => setSearchText(e.target.value)} />
+
+                                        <button className="btn btn-success" type="submit">Search</button>
+                                    </form>
+                                </div>
+
+
                             </div>
-                            <div className="d-flex justify-content-end col-4">
+                            <div className="d-flex justify-content-end col-2">
                                 <div onClick={logoutClick} className="nav-item cursor-pointer">
                                     Logout
                                 </div>
