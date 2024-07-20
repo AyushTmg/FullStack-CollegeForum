@@ -12,6 +12,8 @@ import DetailPage from "../pages/DetailPage/detailPage";
 import CreatePost from "../pages/CreatePost/post";
 import SemesterFilter from "../pages/Semester/semester";
 import SearchFilter from "../pages/SearchPage/serachPage";
+import { Loading } from "../components/Common/Loading/loading";
+import { Structure } from "../layout/structure";
 
 
 function RegisterAndLogout() {
@@ -25,6 +27,20 @@ export default function RouteLayout() {
     return (
         <div>
             <Routes>
+                <Route path="/" element={
+                    <ProtectedRoute>
+                        <Structure />
+                    </ProtectedRoute>
+                }>
+                    <Route path="" element={<Home />} />
+                    <Route path="/question/:id" element={<DetailPage />} />
+                    <Route path="/ask-question" element={<CreatePost />} />
+                    <Route path="/search/:str" element={<SearchFilter />} />
+                    <Route path="/semester/:semester" element={<SemesterFilter />} />
+                    <Route path="/change-password" element={<ChangePassword />} />
+                </Route>
+
+
                 <Route path="/login" element={
                     <PublicRoute>
                         <Login />
@@ -35,24 +51,6 @@ export default function RouteLayout() {
                     <PublicRoute>
                         <RegisterAndLogout />
                     </PublicRoute>
-                } />
-
-                <Route path="/change-password" element={
-                    <ProtectedRoute>
-                        <ChangePassword />
-                    </ProtectedRoute>
-                } />
-
-                <Route path="/semester/:semester" element={
-                    <ProtectedRoute>
-                        <SemesterFilter />
-                    </ProtectedRoute>
-                } />
-
-                <Route path="/search/:str" element={
-                    <ProtectedRoute>
-                        <SearchFilter />
-                    </ProtectedRoute>
                 } />
 
                 <Route path="/forgot-password" element={
@@ -67,24 +65,6 @@ export default function RouteLayout() {
                     </PublicRoute>
                 } />
 
-                <Route path="/" element={
-                    <ProtectedRoute>
-                        <Home />
-                    </ProtectedRoute>}>
-                </Route>
-
-                <Route path="/question/:id" element={
-                    <ProtectedRoute>
-                        <DetailPage />
-                    </ProtectedRoute>
-                }
-                />
-
-                <Route path="/ask-question" element={
-                    <ProtectedRoute>
-                        <CreatePost />
-                    </ProtectedRoute>}>
-                </Route>
 
                 {/* ! If the Route Other than the specified one are mapped this NotFound Component Will be Called */}
                 <Route path="*" element={<NotFound />} />
