@@ -6,7 +6,7 @@ import { isAxiosError } from "axios";
 import Answer from "../../components/Answer/answer";
 import ToastMessage from "../../utils/toaster/toaster";
 import { createAnswer, deleteQuestion, fetchQuestionDetail, fetchAnswerListRelatedToSpecificQuestion, deleteAnswer } from "../../services/Forum/forum";
-
+import { Loading } from "../../components/Common/Loading/loading";
 
 
 export default function DetailPage() {
@@ -174,7 +174,7 @@ export default function DetailPage() {
                     </div>
 
                 </div>
-                : <div>Loading</div>
+                : <Loading />
             }
         </>
     )

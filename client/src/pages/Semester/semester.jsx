@@ -1,16 +1,16 @@
+import { SideBar } from '../../components/SideBar/sidebar';
 import ToastMessage from '../../utils/toaster/toaster';
-import { userDetail } from '../../utils/userDetail/userDetail';
 import { useEffect, useState } from 'react';
 import QuestionCard from '../../components/Question/question';
 import { fetchQuestionListBySemester } from '../../services/Forum/forum';
 import { useParams } from 'react-router-dom'
-import Header from '../../components/Header/header';
+import { Loading } from '../../components/Common/Loading/loading';
 
 
 export default function SemesterFilter() {
-    const userData = userDetail();
     const [questions, setQuestions] = useState([]);
     const { semester } = useParams()
+    const [loading, setLoading] = useState(true)
 
 
     useEffect(() => {
@@ -21,6 +21,7 @@ export default function SemesterFilter() {
                 if (response.success) {
                     setQuestions(response.data);
                 }
+                setLoading(false)
 
             } catch (error) {
                 if (axios.isAxiosError(error)) {
@@ -37,24 +38,30 @@ export default function SemesterFilter() {
 
     return (
         <>
-            <Header />
-            <div className='d-flex justify-content-center'>
-                <div>Welcome {userData.username}</div>
-            </div>
 
-            <div className='questions-container'>
-                {questions.length > 0 ? questions.map((question) => (
-                    <QuestionCard
-                        key={question.id}
-                        title={question.title}
-                        user={question.user}
-                        likes={question.likes}
-                        timeStamp={question.time_stamp}
-                        semester={question.semester}
-                        id={question.id}
-                    />
-                )) : <div>No Data</div>}
-            </div>
+            {loading ?
+                <Loading />
+                :
+                <div>
+
+                    <div className='questions-container'>
+                        {questions.length > 0 ? questions.map((question) => (
+                            <QuestionCard
+                                key={question.id}
+                                title={question.title}
+                                user={question.user}
+                                likes={question.likes}
+                                timeStamp={question.time_stamp}
+                                semester={question.semester}
+                                id={question.id}
+                            />
+                        )) : <div>No Data</div>}
+                    </div>
+                </div>
+            }
+
+
+
 
 
         </>

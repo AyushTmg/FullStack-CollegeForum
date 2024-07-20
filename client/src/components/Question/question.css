@@ -1,13 +1,10 @@
-.question-card {
-    width: 100%;
-    max-width: 540px;
-    margin-bottom: 20px;
+.semester {
+    border: 2px solid orange;
+    color: orange;
+    border-radius: 20px;
+    padding: 4px 10px;
 }
 
-.card-title {
-    font-weight: bold;
-}
-
-.card-text {
-    margin-bottom: 10px;
+.border-white {
+    border: 1px solid rgba(245, 245, 245, 0.829);
 }

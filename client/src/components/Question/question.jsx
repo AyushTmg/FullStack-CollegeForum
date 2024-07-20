@@ -64,25 +64,40 @@ export default function QuestionCard({ id, title, user, likes, timeStamp, semest
 
     return (
         <>
-            <div className="card mb-3 text-center bg-primary">
-                <div className="card-body text-white">
-                    <h5 className="card-title">{title}</h5>
-                    <hr />
-                    <p className="card-text"><small>Posted by: {user}</small></p>
-                    <p className="card-text"><small>Likes: {currentLikes}</small></p>
-                    <p className="card-text"><small>Semester: {semester}</small></p>
-                    <p className="card-text"><small>Time: {new Date(timeStamp).toLocaleString()}</small></p>
-                    <button className="btn btn-primary me-2" onClick={() => navigate(`/question/${id}`)}>View Details</button>
 
-                    {loading ? (
-                        <div>Loading...</div>
-                    ) : isLiked ? (
-                        <button className="btn btn-success" onClick={handleUnlike}>Unlike</button>
-                    ) : (
-                        <button className="btn btn-success" onClick={handleLike}>Like</button>
-                    )}
+            <div className="bg-dark p-4 m-2 border-white">
+                <div className="d-flex justify-content-around ">
+                    <h5 className="">{title}</h5>
+                    <p className=""><small>Time: {new Date(timeStamp).toLocaleString()}</small></p>
+                </div>
+
+                <div className="d-flex justify-content-around">
+                    <div className="d-flex justify-content-between">
+                        {/* <p className=""><small>Posted by: {user}</small></p> */}
+                        &nbsp;
+                        &nbsp;
+                        <p className="semester"><small>{semester}</small></p>
+                    </div>
+
+                    <div>
+                        <button className="btn btn-primary me-2" onClick={() => navigate(`/question/${id}`)}>View Details</button>
+                        {loading ? (
+                            <div>Loading...</div>
+                        ) : isLiked ? (
+                            <button className="btn btn-success" onClick={handleUnlike}>Unlike</button>
+                        ) : (
+                            <button className="btn btn-success" onClick={handleLike}>Like</button>
+                        )}
+                        &nbsp;
+                        &nbsp;
+                        <small>Likes: {currentLikes}</small>
+
+                    </div>
                 </div>
             </div>
+
+
+
         </>
     );
 }
