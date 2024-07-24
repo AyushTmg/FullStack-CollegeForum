@@ -4,6 +4,7 @@ import ToastMessage from "../../utils/toaster/toaster"
 import { isAxiosError } from "axios"
 import { useEffect, useState } from "react"
 import { fetchInitialAnswerLikeStatus, likeAnswer, unlikeAnswer } from "../../services/Forum/forum"
+import { formatDistanceToNow } from 'date-fns';
 
 export default function Answer({ id, questionId, user, description, timeStamp, likes, onDeleteAnswer }) {
     const userData = userDetail()
@@ -73,7 +74,7 @@ export default function Answer({ id, questionId, user, description, timeStamp, l
             <div className="p-5 bg-primary text-white mt-5">
                 <div>User {user}</div>
                 <div>Description {description}</div>
-                <div>TimeStamp {timeStamp}</div>
+                <p><small>{formatDistanceToNow(new Date(timeStamp), { addSuffix: true })}</small></p>
                 <div>Likes {currentLikes}</div>
 
                 {loggedUser == user &&

@@ -10,6 +10,7 @@ import "./question.css";
 import PropTypes from 'prop-types';
 import { useNavigate } from "react-router-dom";
 import ToastMessage from "../../utils/toaster/toaster";
+import { formatDistanceToNow } from 'date-fns';
 
 
 
@@ -66,12 +67,12 @@ export default function QuestionCard({ id, title, user, likes, timeStamp, semest
         <>
 
             <div className="bg-dark p-4 m-2 border-white">
-                <div className="d-flex justify-content-around ">
-                    <h5 className="">{title}</h5>
-                    <p className=""><small>Time: {new Date(timeStamp).toLocaleString()}</small></p>
+                <div className="d-flex justify-content-between">
+                    <h5>{title}</h5>
+                    <p><small>{formatDistanceToNow(new Date(timeStamp), { addSuffix: true })}</small></p>
                 </div>
 
-                <div className="d-flex justify-content-around">
+                <div className="d-flex justify-content-between">
                     <div className="d-flex justify-content-between">
                         {/* <p className=""><small>Posted by: {user}</small></p> */}
                         &nbsp;
@@ -91,6 +92,7 @@ export default function QuestionCard({ id, title, user, likes, timeStamp, semest
                         &nbsp;
                         &nbsp;
                         <small>Likes: {currentLikes}</small>
+
 
                     </div>
                 </div>
