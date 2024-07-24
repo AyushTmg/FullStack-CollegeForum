@@ -1,4 +1,20 @@
 .sidebar {
     display: grid;
     height: 100vh;
+    grid-template-rows: 15vh 70vh 15vh;
 }
+
+.sem-option {
+    padding: 20px;
+    cursor: pointer;
+    transition: all;
+    transition-duration: 0.5s;
+}
+
+.sem-option:hover {
+    background-color: grey;
+    transform: scale(1.05);
+    border-radius: 20px;
+}
+
+.home {}

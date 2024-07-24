@@ -23,3 +23,16 @@
 .custom-dropdown .dropdown-toggle::after {
     display: none;
 }
+
+#logout,
+#side-semester {
+    display: none;
+}
+
+@media (max-width: 950px) {
+
+    #logout,
+    #side-semester {
+        display: block;
+    }
+}

@@ -31,47 +31,24 @@ export default function Header() {
             <header className="navbar-dark bg-dark text-white ">
                 <div className="row">
                     <div className="d-flex justify-content-between text-white">
-                        <div className="d-flex justify-content-evenly col-10">
-                            <div className="nav-item cursor-pointer" onClick={() => navigate('/')}>Home</div>
+                        <div className="d-flex justify-content-evenly col-lg-8 col-md-8 col-sm-10">
                             <div className="nav-item cursor-pointer" onClick={() => navigate('/ask-question')}>Ask  Question</div>
-                            <div className="nav-item dropdown custom-dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Select By Semester
-                                </a>
-                                <ul className="dropdown-menu dropdown-menu-dark">
-                                    <li><button className="dropdown-item" onClick={() => routeBySemester('1st Semester')} >1st Semester</button></li>
-                                    <li><button className="dropdown-item" onClick={() => routeBySemester('2nd Semester')} >2nd Semester</button></li>
-                                    <li><button className="dropdown-item" onClick={() => routeBySemester('3rd Semester')} >3rd Semester</button></li>
-                                    <li><button className="dropdown-item" onClick={() => routeBySemester('4th Semester')} >4th Semester</button></li>
-                                    <li><button className="dropdown-item" onClick={() => routeBySemester('5th Semester')} >5th Semester</button></li>
-                                    <li><button className="dropdown-item" onClick={() => routeBySemester('6th Semester')} >6th Semester</button></li>
-                                    <li><button className="dropdown-item" onClick={() => routeBySemester('7th Semester')} >7th Semester</button></li>
-                                    <li><button className="dropdown-item" onClick={() => routeBySemester('8th Semester')} >8th Semester</button></li>
-                                </ul>
-                            </div>
-
                             <div className="nav-item">
-                                <form className="d-flex " role="search" onSubmit={handleSearchSubmit}>
+                                <form className="d-flex" role="search" onSubmit={handleSearchSubmit}>
                                     <input className="form-control me-2" type="search" placeholder="Search" value={searchText} onChange={(e) => setSearchText(e.target.value)} />
 
                                     <button className="btn btn-success" type="submit">Search</button>
                                 </form>
                             </div>
-
-
                         </div>
-                        <div className="d-flex justify-content-end col-2">
-                            <div onClick={logoutClick} className="nav-item cursor-pointer">
-                                Logout
-                            </div>
 
+                        <div className="d-flex justify-content-end col-lg-4 col-md-4 col-sm-2 ">
                             <button className="navbar-toggler p-3" type="button" data-bs-toggle="offcanvas"
                                 data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
                                 <span className="navbar-toggler-icon"></span>
                             </button>
                         </div>
 
-                        {/* DropDown Items */}
                         <div className="offcanvas offcanvas-end text-bg-dark" tabIndex="-1" id="offcanvasDarkNavbar"
                             aria-labelledby="offcanvasDarkNavbarLabel">
                             <div className="offcanvas-header">
@@ -87,14 +64,22 @@ export default function Header() {
                                             Change Password
                                         </a>
                                     </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="#">Link</a>
-                                    </li>
-                                    <li className="nav-item dropdown">
+
+                                    <li className="nav-item dropdown" id="side-semester">
                                         <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                             aria-expanded="false">
-                                            Dropdown
+                                            Semester
                                         </a>
+                                        <ul className="dropdown-menu dropdown-menu-dark">
+                                            <li><button className="dropdown-item" onClick={() => routeBySemester('1st Semester')} >1st Semester</button></li>
+                                            <li><button className="dropdown-item" onClick={() => routeBySemester('2nd Semester')} >2nd Semester</button></li>
+                                            <li><button className="dropdown-item" onClick={() => routeBySemester('3rd Semester')} >3rd Semester</button></li>
+                                            <li><button className="dropdown-item" onClick={() => routeBySemester('4th Semester')} >4th Semester</button></li>
+                                            <li><button className="dropdown-item" onClick={() => routeBySemester('5th Semester')} >5th Semester</button></li>
+                                            <li><button className="dropdown-item" onClick={() => routeBySemester('6th Semester')} >6th Semester</button></li>
+                                            <li><button className="dropdown-item" onClick={() => routeBySemester('7th Semester')} >7th Semester</button></li>
+                                            <li><button className="dropdown-item" onClick={() => routeBySemester('8th Semester')} >8th Semester</button></li>
+                                        </ul>
                                         <ul className="dropdown-menu dropdown-menu-dark">
 
                                             <li><a className="dropdown-item" href="#">Another action</a></li>
@@ -104,12 +89,17 @@ export default function Header() {
                                             <li><a className="dropdown-item" href="#">Something else here</a></li>
                                         </ul>
                                     </li>
+                                    <li className="nav-item" id="logout">
+                                        <div onClick={logoutClick} className="nav-link">
+                                            Logout
+                                        </div>
+                                    </li>
                                 </ul>
 
-                                <form className="d-flex mt-3" role="search">
+                                {/* <form className="d-flex mt-3" role="search">
                                     <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                                     <button className="btn btn-success" type="submit">Search</button>
-                                </form>
+                                </form> */}
                             </div>
                         </div>
 
