@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from "react-router-dom";
 import ToastMessage from "../../utils/toaster/toaster";
 import { formatDistanceToNow } from 'date-fns';
+import { Loading } from "../Common/Loading/loading";
 
 
 
@@ -65,38 +66,37 @@ export default function QuestionCard({ id, title, user, likes, timeStamp, semest
 
     return (
         <>
-
-            <div className="bg-dark p-4 m-2 border-white">
-                <div className="d-flex justify-content-between">
-                    <h5>{title}</h5>
-                    <p><small>{formatDistanceToNow(new Date(timeStamp), { addSuffix: true })}</small></p>
-                </div>
-
-                <div className="d-flex justify-content-between">
+            {loading ? (
+                <Loading />
+            ) :
+                <div className="bg-dark p-4 m-2 border-white" >
                     <div className="d-flex justify-content-between">
-                        {/* <p className=""><small>Posted by: {user}</small></p> */}
-                        &nbsp;
-                        &nbsp;
-                        <p className="semester"><small>{semester}</small></p>
+                        <h5 onClick={() => navigate(`/question/${id}`)} className="cursor-pointer">{title}</h5>
+                        <p><small>{formatDistanceToNow(new Date(timeStamp), { addSuffix: true })}</small></p>
                     </div>
 
-                    <div>
-                        <button className="btn btn-primary me-2" onClick={() => navigate(`/question/${id}`)}>View Details</button>
-                        {loading ? (
-                            <div>Loading...</div>
-                        ) : isLiked ? (
-                            <button className="btn btn-success" onClick={handleUnlike}>Unlike</button>
-                        ) : (
-                            <button className="btn btn-success" onClick={handleLike}>Like</button>
-                        )}
-                        &nbsp;
-                        &nbsp;
-                        <small>Likes: {currentLikes}</small>
+                    <div className="d-flex justify-content-between">
+                        <div className="d-flex justify-content-between">
+                            &nbsp;
+                            &nbsp;
+                            <p className="semester"><small>{semester}</small></p>
+                        </div>
 
+                        <div>
+                            <button className="btn btn-primary me-2" onClick={() => navigate(`/question/${id}`)}>View Details</button>
+                            {isLiked ? (
+                                <button className="btn btn-success" onClick={handleUnlike}>Unlike</button>
+                            ) : (
+                                <button className="btn btn-success" onClick={handleLike}>Like</button>
+                            )}
+                            &nbsp;
+                            &nbsp;
+                            <small>Likes: {currentLikes}</small>
 
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
 
 
 
