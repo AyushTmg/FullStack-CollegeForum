@@ -39,7 +39,7 @@ export default function Home() {
                 :
                 <div>
                     <div className="col-lg-12">
-                        <div className='questions-container'>
+                        <div className=''>
                             {questions ? questions.map((question) => (
                                 <QuestionCard
                                     key={question.id}

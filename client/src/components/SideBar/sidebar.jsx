@@ -31,7 +31,7 @@ export function SideBar() {
                     <div onClick={() => routeBySemester('8th Semester')} className='sem-option' >8th Semester</div>
                 </div>
 
-                <div onClick={logoutClick} className="nav-item cursor-pointer">
+                <div onClick={logoutClick} className="cursor-pointer">
                     Logout
                 </div>
             </div>
