@@ -3,19 +3,19 @@
 
 
 #### Technologies used on server-side:
-Django-Rest-Framework,Simple-JWT ,Celery, Django-Debug-Toolbar,Redis,Django-Filter,Django-dotenv.
+Django-Rest-Framework,Simple-JWT ,Celery, Django-Debug-Toolbar,Redis,Django-Filter,Django-dotenv and more . . .
 
 
 #### Technologies used on client-side:
-axios,date-fns, jwt-decode, prop-types, react-jwt, react-router-dom, react-toastify,html,css,bootstrap
+axios,date-fns, jwt-decode, prop-types, react-jwt, react-router-dom, react-toastify,html,css,bootstrap and more . . .
 
 
 
 ## API documentation
 
-The API documentation for the college forum 
+Welcome to the College Forum API documentation. This API supports the core functionalities needed for managing an interactive forum.
 
--- Coming Soon 
+https://documenter.getpostman.com/view/30946823/2sA3kYiKZv
 
 
 
@@ -25,7 +25,7 @@ The API documentation for the college forum
 
 #### 1-  First of all clone this repo
 
-        git@github.com:AyushTmg/FullStack-CollegeForum.git
+        git clone git@github.com:AyushTmg/FullStack-CollegeForum.git
 
 
 #### 2- Navigate to the server directory
