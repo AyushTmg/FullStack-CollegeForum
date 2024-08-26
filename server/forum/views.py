@@ -1,3 +1,4 @@
+from .paginations import Default
 from .permissions import IsUserObjectOrAdminPermission
 from .models import (
     Question,
@@ -5,6 +6,7 @@ from .models import (
     QuestionLike,
     AnswerLike
 )
+
 
 from .serailizers import (
     QuestionSerailizer,
@@ -47,6 +49,7 @@ class QuestionViewSet(ModelViewSet):
         OrderingFilter
     ]
     filterset_fields=['semester']
+    pagination_class=Default
 
     # ! Fields Used For Searching
     search_fields = ['title','description']
