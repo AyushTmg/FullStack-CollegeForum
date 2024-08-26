@@ -21,6 +21,7 @@ class Question(models.Model):
     user=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='question')
     likes=models.IntegerField(default=0,null=True,blank=True)
     semester = models.CharField(max_length=15, choices=SEMESTER_CHOICES)
+    answer_count=models.IntegerField(default=0,null=True,blank=True)
 
 
     def __str__(self) -> str:

@@ -273,6 +273,10 @@ class AnswerViewSet(ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
+        question_id=self.kwargs['question_pk']
+        question=Question.objects.get(id=question_id)
+        question.answer_count+=1
+        question.save()
         return cr.success(
             status=HTTP_201_CREATED,
             message="You Have Successfuly Created New Post"
@@ -285,6 +289,10 @@ class AnswerViewSet(ModelViewSet):
         """
         instance = self.get_object()
         self.perform_destroy(instance)
+        question_id=self.kwargs['question_pk']
+        question=Question.objects.get(id=question_id)
+        question.answer_count-=1
+        question.save()
         return cr.success(
             status=HTTP_204_NO_CONTENT,
             message="Post Deleted Successfully"

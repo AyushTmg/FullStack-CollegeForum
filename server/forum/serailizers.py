@@ -7,7 +7,7 @@ class QuestionSerailizer(serializers.ModelSerializer):
     user=serializers.StringRelatedField()
     likes=serializers.IntegerField(read_only=True)
     description=serializers.CharField(max_length=None,write_only=True)
-    
+
 
     class Meta:
         model=Question
@@ -18,7 +18,8 @@ class QuestionSerailizer(serializers.ModelSerializer):
             'description',
             'likes',
             'time_stamp',
-            'semester'
+            'semester',
+            'answer_count'
         ]
 
 
