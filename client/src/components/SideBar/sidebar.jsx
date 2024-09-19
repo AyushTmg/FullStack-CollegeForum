@@ -18,7 +18,10 @@ export function SideBar() {
         <>
             <div className='sidebar'>
                 <div>
-                    <div className="cursor-pointer mt-4 mb-0 pb-0" onClick={() => navigate('/')}>Home</div>
+                    <div className="cursor-pointer mt-4 mb-0 pb-0" onClick={() => navigate('/')}>
+                        <img src="/images/loder.png" className="w-25 h-25 mb-3 object-fit-contain" alt="Loader" />
+                        Home
+                    </div>
                 </div>
                 <div>
                     <div onClick={() => routeBySemester('1st Semester')} className='sem-option' >1st Semester</div>

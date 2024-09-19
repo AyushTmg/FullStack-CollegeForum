@@ -17,10 +17,8 @@ export default function SemesterFilter() {
         const fetchQuestions = async () => {
             try {
                 const response = await fetchQuestionListBySemester(semester);
-                console.log("Data", response.data)
-                if (response.success) {
-                    setQuestions(response.data);
-                }
+                setQuestions(response.results);
+
                 setLoading(false)
 
             } catch (error) {

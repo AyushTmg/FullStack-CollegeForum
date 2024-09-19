@@ -17,10 +17,7 @@ export default function SearchFilter() {
         const fetchQuestions = async () => {
             try {
                 const response = await fetchQuestionListBySearch(str);
-                console.log("Data", response.data)
-                if (response.success) {
-                    setQuestions(response.data);
-                }
+                setQuestions(response.results);
 
             } catch (error) {
                 if (axios.isAxiosError(error)) {
