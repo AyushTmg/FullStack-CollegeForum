@@ -196,7 +196,10 @@ class QuestionViewSet(ModelViewSet):
             except Exception as e:
                 # ! Just For handeling Expections
                 print('Error alert: A user is trying to like same object multiple times ')
-                return cr.error(status=HTTP_500_INTERNAL_SERVER_ERROR)
+                return cr.error(
+                    status=HTTP_500_INTERNAL_SERVER_ERROR,
+                    message="Already Liked"
+                    )
         
 
         if request.method=='DELETE':
@@ -394,7 +397,8 @@ class AnswerViewSet(ModelViewSet):
                 # ! Just For handeling Expections
                 print('Error alert: A user is trying to like same object multiple times ')
                 return cr.error(
-                    status=HTTP_500_INTERNAL_SERVER_ERROR
+                    status=HTTP_500_INTERNAL_SERVER_ERROR,
+                    message="Already Liked"
                 )
         
 

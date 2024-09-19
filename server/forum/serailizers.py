@@ -19,8 +19,8 @@ class QuestionSerailizer(serializers.ModelSerializer):
             'likes',
             'time_stamp',
             'semester',
-            'answer_count'
         ]
+        read_only_fields=['answer_count']
 
 
     def create(self, validated_data):

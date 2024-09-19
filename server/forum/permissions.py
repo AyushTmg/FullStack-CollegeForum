@@ -37,5 +37,3 @@ class IsUserObjectOrAdminPermission(permissions.BasePermission):
             request.user.is_superuser
         )
     
-
-# JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI0NTAxNjg2LCJpYXQiOjE3MjE5MDk2ODYsImp0aSI6IjcxY2RhNTg5YTkyYzRlMDU4YWY5NjJmODE3YTYzNTRmIiwidXNlcl9pZCI6MjksImZpcnN0X25hbWUiOiJBeXVzaCIsImxhc3RfbmFtZSI6IlRtZyIsInVzZXJuYW1lIjoiYXl1c2h0bWciLCJlbWFpbCI6ImF5dXNodG1nOTk5QGdtYWlsLmNvbSJ9.q3WmQlrqb_7eH5ntZHiZMfbcCCtR8hgcbxQBdtJUXrY
