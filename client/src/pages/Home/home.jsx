@@ -10,14 +10,15 @@ export default function Home() {
     const userData = userDetail();
     const [questions, setQuestions] = useState([]);
     const [loading, setLoading] = useState(true)
+    const [page, setPage] = useState(1)
+    const [totalPage, setTotalPages] = useState(1)
 
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
-                const response = await fetchQuestionList();
-                if (response.success) {
-                    setQuestions(response.data);
-                }
+                const response = await fetchQuestionList(page);
+                setTotalPages(Math.ceil(response.count / 10));
+                setQuestions(response.results);
                 setLoading(false)
             } catch (error) {
                 if (axios.isAxiosError(error)) {
@@ -29,7 +30,14 @@ export default function Home() {
         };
 
         fetchQuestions();
-    }, []);
+    }, [page]);
+
+    const handlePagination = (newPage) => {
+        if (newPage > 0 && newPage <= totalPage) {
+            setPage(newPage)
+            setLoading(true)
+        }
+    }
 
 
     return (
@@ -49,15 +57,35 @@ export default function Home() {
                                     timeStamp={question.time_stamp}
                                     semester={question.semester}
                                     id={question.id}
+                                    answer_count={question.answer_count}
                                 />
                             )) : <div>No Data</div>}
                         </div>
-
                     </div >
+
+                    <div className='mt-5 d-flex justify-content-center'>
+                        <nav aria-label="...">
+                            <ul className="pagination">
+                                <li className={`page-item ${page === 1 ? "disabled" : "cursor-pointer"}`}>
+                                    <span className="page-link " onClick={() => handlePagination(page - 1)}>Previous</span>
+                                </li>
+
+                                {Array.from({ length: totalPage }, (_, index) => (
+                                    <li key={index + 1} className={`page-item ${page === index + 1 ? "active" : ""} cursor-pointer`}>
+                                        <a className="page-link" onClick={() => handlePagination(index + 1)}>
+                                            {index + 1}
+                                        </a>
+                                    </li>
+                                ))}
+
+                                <li className={`page-item ${page === totalPage ? "disabled" : "cursor-pointer"}`}>
+                                    <a className="page-link" onClick={() => handlePagination(page + 1)}>Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div >
             }
-
-
         </>
     )
 }

@@ -1,8 +1,8 @@
 import api from "../../api/api";
 
 
-export async function fetchQuestionList() {
-    const res = await api.get("api/forum/questions/");
+export async function fetchQuestionList(page = '') {
+    const res = await api.get(`api/forum/questions/?page=${page}`);
     return res.data
 }
 export async function fetchQuestionListBySemester(semester) {

@@ -15,7 +15,7 @@ import { Loading } from "../Common/Loading/loading";
 
 
 
-export default function QuestionCard({ id, title, user, likes, timeStamp, semester, is_liked }) {
+export default function QuestionCard({ id, title, likes, timeStamp, semester, is_liked, answer_count }) {
     const [isLiked, setIsLiked] = useState(is_liked);
     const [currentLikes, setCurrentLikes] = useState(likes);
     const [loading, setLoading] = useState(true);
@@ -92,7 +92,9 @@ export default function QuestionCard({ id, title, user, likes, timeStamp, semest
                             &nbsp;
                             &nbsp;
                             <small>Likes: {currentLikes}</small>
-
+                            &nbsp;
+                            &nbsp;
+                            <small>Answers: {answer_count}</small>
                         </div>
                     </div>
                 </div>
