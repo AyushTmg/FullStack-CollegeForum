@@ -7,6 +7,7 @@ class QuestionSerailizer(serializers.ModelSerializer):
     user=serializers.StringRelatedField()
     likes=serializers.IntegerField(read_only=True)
     description=serializers.CharField(max_length=None,write_only=True)
+    answer_count=serializers.SerializerMethodField()
 
 
     class Meta:
@@ -19,8 +20,13 @@ class QuestionSerailizer(serializers.ModelSerializer):
             'likes',
             'time_stamp',
             'semester',
+            'answer_count'
         ]
         read_only_fields=['answer_count']
+
+
+    def get_answer_count(self,instance):
+        return Answer.objects.filter(question_id=instance.id).count()
 
 
     def create(self, validated_data):
