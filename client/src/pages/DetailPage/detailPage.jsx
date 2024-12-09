@@ -124,7 +124,7 @@ export default function DetailPage() {
 
 
                     {/* For Showing Option To Delete The Post  */}
-                    {userData.username == question.user ? <button className="btn btn-danger" onClick={() => setIsDeleting(!isDeleting)}>Delete</button> : null}
+                    {userData.username == question.user || userData.is_superuser == true ? <button className="btn btn-danger" onClick={() => setIsDeleting(!isDeleting)}>Delete</button> : null}
 
                     {isDeleting &&
                         <div>

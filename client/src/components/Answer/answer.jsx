@@ -77,10 +77,12 @@ export default function Answer({ id, questionId, user, description, timeStamp, l
                 <p><small>{formatDistanceToNow(new Date(timeStamp), { addSuffix: true })}</small></p>
                 <div>Likes {currentLikes}</div>
 
-                {loggedUser == user &&
+                {(loggedUser === user || userData.is_superuser == true) && (
+                    <div className="btn btn-danger" onClick={() => setIsDeleting(!isDeleting)}>
+                        Delete
+                    </div>
+                )}
 
-                    <div className="btn btn-danger" onClick={() => setIsDeleting(!isDeleting)}>Delete</div>
-                }
                 {isDeleting &&
                     <div>
                         <div>Do you want to delete?</div>
