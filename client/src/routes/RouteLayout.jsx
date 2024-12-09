@@ -33,12 +33,12 @@ export default function RouteLayout() {
                 }>
                     <Route path="" element={<Home />} />
                     <Route path="/semester/:semester" element={<SemesterFilter />} />
+                    <Route path="/question/:id" element={<DetailPage />} />
+                    <Route path="/search/:str" element={<SearchFilter />} />
                 </Route>
 
-                <Route path="/question/:id" element={<ProtectedRoute> <DetailPage /> </ProtectedRoute>} />
-                <Route path="/ask-question" element={<ProtectedRoute> <CreatePost /> </ProtectedRoute>} />
-                <Route path="/search/:str" element={<ProtectedRoute> <SearchFilter /> </ProtectedRoute>} />
-                <Route path="/change-password" element={<ProtectedRoute><ChangePassword />   </ProtectedRoute>} />
+                <Route path="/change-password" element={<ProtectedRoute> <ChangePassword /> </ProtectedRoute>} />
+                <Route path="/ask-question" element={<ProtectedRoute> <CreatePost /></ProtectedRoute>} />
 
                 <Route path="/login" element={
                     <PublicRoute>
