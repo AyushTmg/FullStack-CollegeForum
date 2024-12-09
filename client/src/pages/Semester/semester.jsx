@@ -11,14 +11,19 @@ export default function SemesterFilter() {
     const [questions, setQuestions] = useState([]);
     const { semester } = useParams()
     const [loading, setLoading] = useState(true)
+    const [page, setPage] = useState(1)
+    const [totalPage, setTotalPages] = useState(1)
 
+    useEffect(() => {
+        setPage(1);
+    }, [semester]);
 
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
-                const response = await fetchQuestionListBySemester(semester);
+                const response = await fetchQuestionListBySemester(semester, page);
                 setQuestions(response.results);
-
+                setTotalPages(Math.ceil(response.count / 10));
                 setLoading(false)
 
             } catch (error) {
@@ -31,7 +36,14 @@ export default function SemesterFilter() {
         };
 
         fetchQuestions();
-    }, [semester]);
+    }, [semester, page]);
+
+    const handlePagination = (newPage) => {
+        if (newPage > 0 && newPage <= totalPage) {
+            setPage(newPage)
+            setLoading(true)
+        }
+    }
 
 
     return (
@@ -53,9 +65,35 @@ export default function SemesterFilter() {
                                 semester={question.semester}
                                 id={question.id}
                             />
+
                         )) : <div>No Data</div>}
                     </div>
+                    {totalPage > 1 &&
+                        <div className='mt-5 d-flex justify-content-center'>
+                            <nav aria-label="...">
+                                <ul className="pagination">
+                                    <li className={`page-item ${page === 1 ? "disabled" : "cursor-pointer"}`}>
+                                        <span className="page-link " onClick={() => handlePagination(page - 1)}>Previous</span>
+                                    </li>
+
+                                    {Array.from({ length: totalPage }, (_, index) => (
+                                        <li key={index + 1} className={`page-item ${page === index + 1 ? "active" : ""} cursor-pointer`}>
+                                            <a className="page-link" onClick={() => handlePagination(index + 1)}>
+                                                {index + 1}
+                                            </a>
+                                        </li>
+                                    ))}
+
+                                    <li className={`page-item ${page === totalPage ? "disabled" : "cursor-pointer"}`}>
+                                        <a className="page-link" onClick={() => handlePagination(page + 1)}>Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    }
                 </div>
+
+
             }
 
 

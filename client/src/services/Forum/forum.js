@@ -5,8 +5,8 @@ export async function fetchQuestionList(page = '') {
     const res = await api.get(`api/forum/questions/?page=${page}`);
     return res.data
 }
-export async function fetchQuestionListBySemester(semester) {
-    const res = await api.get(`api/forum/questions/?semester=${semester}`);
+export async function fetchQuestionListBySemester(semester, page = '') {
+    const res = await api.get(`api/forum/questions/?page=${page}&semester=${semester}`);
     return res.data
 }
 export async function fetchQuestionListBySearch(str) {
