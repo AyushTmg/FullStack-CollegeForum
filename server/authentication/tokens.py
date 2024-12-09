@@ -9,6 +9,7 @@ class CustomRefreshToken(RefreshToken):
         token['last_name'] = user.last_name
         token['username'] = user.username
         token['email'] = user.email
+        token['is_superuser'] = user.is_superuser
 
         return token
 
