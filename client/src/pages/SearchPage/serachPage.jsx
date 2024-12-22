@@ -34,10 +34,6 @@ export default function SearchFilter() {
 
     return (
         <>
-            <Header />
-            <div className='d-flex justify-content-center'>
-                <div>Welcome {userData.username}</div>
-            </div>
 
             <div className='questions-container'>
                 {questions.length > 0 ? questions.map((question) => (
