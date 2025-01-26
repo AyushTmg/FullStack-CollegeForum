@@ -44,14 +44,14 @@ export default function Footer() {
 
                                 <p>
 
-                                    <a href="https://www.linkedin.com/in/ayushtmg/" target="_blank" className="text-reset text-decoration-none">LinkedIn</a>
+                                    <a href="" target="_blank" className="text-reset text-decoration-none">LinkedIn</a>
                                 </p>
                                 <p>
 
-                                    <a href="https://www.instagram.com/ayush.tmg_/" target="_blank" className="text-reset text-decoration-none">Instagram</a>
+                                    <a href="" target="_blank" className="text-reset text-decoration-none">Instagram</a>
                                 </p>
                                 <p>
-                                    <a href="https://github.com/AyushTmg" target="_blank" className="text-reset text-decoration-none">Github</a>
+                                    <a href="" target="_blank" className="text-reset text-decoration-none">Github</a>
                                 </p>
                             </div>
 
@@ -76,7 +76,7 @@ export default function Footer() {
                 </section>
 
                 <div className="text-center p-4" style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}>
-                    © 2021 Copyright: All rights reserved To Ayush Tamang
+                    © 2021 Copyright: All rights reserved To Dora
                 </div>
             </footer>
         </>
