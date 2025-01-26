@@ -83,10 +83,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'main.wsgi.application'
 
+# If you dont want to use the postgres as you database uncomment this code and comment the code belowee
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME':os.environ.get("DB_NAME"),
+        'USER': 'postgres', 
+        'PASSWORD':os.environ.get("DB_PASS"), 
+        'HOST': 'localhost', 
+
     }
 }
 
